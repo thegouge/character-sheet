@@ -42,10 +42,10 @@
                     <button class="dropbtn">
                         <img class="link-img" id="js" src="./assets/images/javascript-logo.png" alt="javascript demos">
                     </button>
-                    <div class="dropdown-content">
-                        <a href="https://thegouge.github.io/to-do-list/">To Do List</a>
-                        <a href="https://thegouge.github.io/links/simplejs.html">Simple Stuff</a>
-                    </div>
+                        <div class="dropdown-content">
+                            <a href="https://thegouge.github.io/to-do-list/">To Do List</a>
+                            <a href="https://thegouge.github.io/links/simplejs.html">Simple Stuff</a>
+                        </div>
                 </li>
                 <a href="https://thegouge.github.io/links/contact.html">
                     <li>
@@ -57,16 +57,24 @@
         <div class="float-clear"></div>
     </header>
 
-    <section class="js">
+    <section class="main">
         <div class="section-header">
             <h2>Dungeons And Dragons Character Sheet</h2>
             <h3>doesn't do too well on mobile... yet!</h3>
         </div>
 
-
-        <button onclick="updateStats()">Calculate</button>
-        <button id="ap-btn" onclick="rollAP()">Generate your Ability Points!</button>
-        <button onclick="levelUp()">Level Up!</button>
+        <div id="toolbar">
+            <button class="tool">Save</button>
+            <div class="loaded">
+                <button class="tool">Load</button>
+                <div class="characters">
+                    <p>You Haven't Loaded any Characters Yet!</p>
+                </div>
+            </div>
+            <button class="tool" onclick="updateStats()">Calculate</button>
+            <button class="tool" id="ap-btn" onclick="rollAP()">Generate your Ability Points!</button>
+            <button class="tool" onclick="levelUp()">Level Up!</button>
+        </div>
 
         <div class="modal" id="ap-modal">
 

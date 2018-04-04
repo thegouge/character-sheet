@@ -166,7 +166,7 @@ body {
     .dropdown-content {
         display: none;
         position: absolute;
-        transform: translate(-80px);
+        right: 0;
         min-width: 153px;
         border: 1px solid #444;
         background: #222;
