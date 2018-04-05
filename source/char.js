@@ -6,14 +6,14 @@ var skills = {
     "savingThrows": [],
     "skills": []
 };
-$.getJSON('../source/data/skills.json', function(data) {
+$.getJSON('./source/data/skills.json', function(data) {
         skills.savingThrows = data.savingThrows.slice();
         skills.skills = data.skills.slice();
     });
 
 // Puts data from the 'races' JSON into an Array
 var races;
-$.getJSON("../source/data/races.json", function(json) {
+$.getJSON("./source/data/races.json", function(json) {
     races = json;
 
     // Populates datalist for race selection
@@ -28,7 +28,7 @@ $.getJSON("../source/data/races.json", function(json) {
 
 // Puts Data from the Classes JSON into an Array
 var classes;
-$.getJSON("../source/data/classes.json", function(json) {
+$.getJSON("./source/data/classes.json", function(json) {
     classes = json;
 
     //Populates datalist for class selection
@@ -42,7 +42,7 @@ $.getJSON("../source/data/classes.json", function(json) {
 });
 
 var backgrounds;
-$.getJSON("../source/data/backgrounds.json", function (json) {
+$.getJSON("./source/data/backgrounds.json", function (json) {
     backgrounds = json;
 
     // Populates datalist for background selection

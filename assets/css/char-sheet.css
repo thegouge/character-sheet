@@ -68,7 +68,7 @@
         width: 1275px;
         height: 1650px;
         margin: auto;
-        background-image: url('../Images/char-sheet.jpg');
+        background-image: url('../images/background.jpg');
         background-size: cover;
         text-align: center;
         display: grid;
