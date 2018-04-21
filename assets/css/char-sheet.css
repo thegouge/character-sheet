@@ -23,6 +23,7 @@
         padding: 8px 13px;
         border: none;
         display: inline-block;
+        box-shadow: black 2px 2px;
     }
     .tool:hover {
         background: rgb(63, 209, 124);

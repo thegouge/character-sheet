@@ -1,4 +1,3 @@
-// jshint esversion: 6
 // Fills out the DnD character sheet on the Page
 
 // Puts data from the 'skills' JSON into an object
@@ -6,29 +5,39 @@ var skills = {
     "savingThrows": [],
     "skills": []
 };
-$.getJSON('./source/data/skills.json', function(data) {
-        skills.savingThrows = data.savingThrows.slice();
-        skills.skills = data.skills.slice();
-    });
+fetch('./source/data/skills.json')
+        .then(function(response) {
+            return response.json();
+        }).then(function(data){
+            skills.savingThrows = data.savingThrows.slice();
+            skills.skills = data.skills.slice();
+        });
 
 // Puts data from the 'races' JSON into an Array
 var races;
-$.getJSON("./source/data/races.json", function(json) {
-    races = json;
+fetch("./source/data/races.json")
+    .then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        races = data;
 
-    // Populates datalist for race selection
-    races.forEach(element => {
-        var item = document.createElement("option");
-        item.setAttribute('value', element.name);
-        item.setAttribute('id', element.name);
-        item.setAttribute('class', 'race');
-        document.getElementById('race-list').appendChild(item);
+        // Populates datalist for race selection
+        races.forEach(element => {
+            var item = document.createElement("option");
+            item.setAttribute('value', element.name);
+            item.setAttribute('id', element.name);
+            item.setAttribute('class', 'race');
+            document.getElementById('race-list').appendChild(item);
+        });
     });
-});
 
 // Puts Data from the Classes JSON into an Array
 var classes;
-$.getJSON("./source/data/classes.json", function(json) {
+fetch("./source/data/classes.json")
+    .then(function(response) {
+        return response.json();
+        
+    }).then(function(json) {
     classes = json;
 
     //Populates datalist for class selection
@@ -42,18 +51,21 @@ $.getJSON("./source/data/classes.json", function(json) {
 });
 
 var backgrounds;
-$.getJSON("./source/data/backgrounds.json", function (json) {
-    backgrounds = json;
+fetch("./source/data/backgrounds.json")
+    .then(function (response) {
+        return response.json();
+    }).then(function(json) {
+        backgrounds = json;
 
-    // Populates datalist for background selection
-    backgrounds.forEach(element => {
-        var item = document.createElement("option");
-        item.setAttribute('value', element.name);
-        item.setAttribute('id', element.name.replace(/' '/g, '-'));
-        item.setAttribute('class', 'background');
-        document.getElementById('background-list').appendChild(item);
+        // Populates datalist for background selection
+        backgrounds.forEach(element => {
+            var item = document.createElement("option");
+            item.setAttribute('value', element.name);
+            item.setAttribute('id', element.name.replace(/' '/g, '-'));
+            item.setAttribute('class', 'background');
+            document.getElementById('background-list').appendChild(item);
+        });
     });
-});
 
 
 // Creation of the Ability Score Object
