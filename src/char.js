@@ -1,21 +1,24 @@
 // Fills out the DnD character sheet on the Page
 
-import { skills } from "./data/skills";
-import { races } from "./data/races";
-import { classes } from "./data/classes";
-import { backgrounds } from "./data/backgrounds";
+import {skills} from "./data/skills.js";
+import {races} from "./data/races.js";
+import {classes} from "./data/classes.js";
+import {backgrounds} from "./data/backgrounds.js";
 
 // Creation of the Ability Score Object
 class Stat {
   constructor(name, score) {
     this.name = name;
     this.abilityScore = score;
-    this.mod = this.modGen();
-  }
-  modGen() {
-    return Math.floor((this.score - 10) / 2);
+    this.mod = modGen(score);
   }
 }
+
+function modGen(score) {
+  return Math.floor((score - 10) / 2);
+}
+
+let str, dex, con, int, wis, cha;
 
 const characterStats = [
   (str = new Stat("str", document.getElementById("str").value)),
@@ -33,7 +36,6 @@ function rollAP() {
   modal.style.display = "block";
   close.onclick = function() {
     modal.style.display = "none";
-    // statLists.forEach((list) => {list.remove});
     results = [];
   };
 
@@ -45,7 +47,7 @@ function rollAP() {
     document.getElementById("wisdom"),
     document.getElementById("charisma")
   ];
-  const results = [];
+  let results = [];
 
   for (const i = 0; i < characterStats.length; i++) {
     const num = [];
@@ -248,13 +250,13 @@ function backgroundBonus(b) {
 
 // Calculates Saving Throw and Skill Bonuses
 function addPro(nam, sta) {
-  const pro = document.getElementById("pro-bonus").innerHTML;
+  let pro = document.getElementById("pro-bonus").innerHTML;
   pro = parseInt(pro.replace("+", ""));
 
   const box = document.getElementById(nam);
 
   sta = sta + ".mod";
-  const bon = eval(sta);
+  let bon = eval(sta);
 
   if (box.checked == true) {
     bon = bon + pro;
@@ -329,6 +331,7 @@ function updateStats() {
   document.getElementById("initiative").innerHTML = characterStats[1].mod;
 
   // Calculate Passive Perception
+  let pro;
   const perception = document.getElementById("perc");
   if (perc.checked == true) {
     pro = document.getElementById("pro-bonus").innerHTML;
