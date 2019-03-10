@@ -1,4 +1,4 @@
-[
+export const classes = [
     {
 		"name": "Barbarian",
 		"hitDice": "1d12",

@@ -1,4 +1,4 @@
-{
+export const skills = {
     "savingThrows": [
         {
             "name": "Strength",
