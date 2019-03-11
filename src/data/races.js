@@ -1,4 +1,4 @@
-[
+export const races = [
     {
         "name":"Aarakocra",
         "stats": [

@@ -1,4 +1,4 @@
-[
+export const backgrounds = [
     {
         "name":"Acolyte",
         "skills": [
