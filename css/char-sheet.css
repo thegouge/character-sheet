@@ -201,11 +201,9 @@
 }
 .saving-throws {
   text-align: left;
-}
-.saving-throws ul {
   list-style: none;
 }
-.saving-throws ul li {
+.st-li {
   margin-top: 4px;
   width: 20%;
 }
@@ -213,16 +211,15 @@
   margin-top: 6px;
   float: left;
 }
-.saving-throws ul li p {
+.st-li p {
   margin-left: 35px;
 }
 .skills {
   margin-top: 77px;
-}
-.skills ul {
   list-style: none;
 }
-.skills ul li {
+
+.skill-li {
   margin-top: 4px;
   width: 20%;
 }
@@ -230,7 +227,7 @@
   margin-top: 6px;
   float: left;
 }
-.skills ul li p {
+.skill-li p {
   margin-left: 33px;
 }
 .otherPro {

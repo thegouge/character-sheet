@@ -1,33 +1,37 @@
-// Fills out the DnD character sheet on the Page
-
-import {skills} from "./data/skills.js";
-import {races} from "./data/races.js";
-import {classes} from "./data/classes.js";
-import {backgrounds} from "./data/backgrounds.js";
+// import lists of stuff
+import { skills } from "./data/skills.js";
+import { races } from "./data/races.js";
+import { classes } from "./data/classes.js";
+import { backgrounds } from "./data/backgrounds.js";
 
 // Creation of the Ability Score Object
 class Stat {
-  constructor(name, score) {
+  constructor(name) {
     this.name = name;
-    this.abilityScore = score;
-    this.mod = modGen(score);
+    this.abilityScore = document.getElementById(name).value;
+    this.mod = Stat.modGen(this.abilityScore);
+    document
+      .getElementById(name)
+      .addEventListener("change", () => updateStats());
+  }
+  static modGen(score) {
+    return Math.floor((score - 10) / 2);
   }
 }
 
-function modGen(score) {
-  return Math.floor((score - 10) / 2);
+class Character {
+  constructor() {
+    this.str = new Stat("str");
+    this.dex = new Stat("dex");
+    this.con = new Stat("con");
+    this.int = new Stat("int");
+    this.wis = new Stat("wis");
+    this.cha = new Stat("cha");
+    this.stats = [this.str, this.dex, this.con, this.int, this.wis, this.cha];
+  }
 }
 
-let str, dex, con, int, wis, cha;
-
-const characterStats = [
-  (str = new Stat("str", document.getElementById("str").value)),
-  (dex = new Stat("dex", document.getElementById("dex").value)),
-  (con = new Stat("con", document.getElementById("con").value)),
-  (int = new Stat("int", document.getElementById("int").value)),
-  (wis = new Stat("wis", document.getElementById("wis").value)),
-  (cha = new Stat("cha", document.getElementById("cha").value))
-];
+const init = new Character();
 
 function rollAP() {
   const modal = document.getElementById("ap-modal");
@@ -49,7 +53,7 @@ function rollAP() {
   ];
   let results = [];
 
-  for (const i = 0; i < characterStats.length; i++) {
+  for (const i = 0; i < init.stats.length; i++) {
     const num = [];
     while (num.length < 4) {
       num.push(Math.round(Math.random() * 6) + 1);
@@ -108,19 +112,7 @@ function rollAP() {
   };
 }
 
-function dynamicDropDown(object) {
-  console.log("getting to it");
-}
-
 // Event Listeners
-characterStats.forEach(function(stat) {
-  document
-    .getElementById(stat.name)
-    .addEventListener("change", function(event) {
-      updateStats();
-    });
-});
-
 document.getElementById("classes").addEventListener("change", function() {
   classBonus(document.getElementById("classes").value);
 });
@@ -149,10 +141,10 @@ function classBonus(c) {
 
   // Set each element to an easier to read constiable
   const saves = cl.throws;
-  const otherPro = document.getElementById("otherPro").innerHTML;
-  const spells = document.getElementById("otherAtks").innerHTML;
-  const equip = document.getElementById("equip").innerHTML;
-  const traits = document.getElementById("traits").innerHTML;
+  let otherPro = document.getElementById("otherPro").innerHTML;
+  let spells = document.getElementById("otherAtks").innerHTML;
+  let equip = document.getElementById("equip").innerHTML;
+  let traits = document.getElementById("traits").innerHTML;
 
   // Update elements based on json info
   document.getElementById("hit-type").innerHTML = cl.hitDice;
@@ -184,15 +176,15 @@ function raceBonus(r) {
   });
 
   // Set each element to an easier to read constiable
-  const bonuses = race.characterStats;
+  const bonuses = race.init.stats;
   const otherPro = document.getElementById("otherPro").innerHTML;
   const traits = document.getElementById("traits").innerHTML;
 
   // Update elements based on json info
   for (const i = 0; i < bonuses.length; i++) {
     document.getElementById(bonuses[i].name).value =
-      parseInt(document.getElementById(race.characterStats[i].name).value) +
-      race.characterStats[i].bonus;
+      parseInt(document.getElementById(race.init.stats[i].name).value) +
+      race.init.stats[i].bonus;
   }
   document.getElementById("speed").innerHTML = race.speed;
   otherPro = otherPro + race.languages;
@@ -255,8 +247,7 @@ function addPro(nam, sta) {
 
   const box = document.getElementById(nam);
 
-  sta = sta + ".mod";
-  let bon = eval(sta);
+  let bon = init[sta].mod;
 
   if (box.checked == true) {
     bon = bon + pro;
@@ -311,9 +302,9 @@ function updateStats() {
   proficiencyChecker(document.getElementById("char-level").value);
 
   // Calcualte Ability Modifiers
-  characterStats.forEach(function(s) {
+  init.stats.forEach(function(s) {
     s.abilityScore = document.getElementById(s.name).value;
-    s.mod = modGen(s.abilityScore);
+    s.mod = Stat.modGen(s.abilityScore);
     document.getElementById(s.name + "Mod").innerHTML = s.mod;
   });
 
@@ -328,18 +319,17 @@ function updateStats() {
   });
 
   // Calculating initiative Mod
-  document.getElementById("initiative").innerHTML = characterStats[1].mod;
+  document.getElementById("initiative").innerHTML = init.stats[1].mod;
 
   // Calculate Passive Perception
   let pro;
-  const perception = document.getElementById("perc");
-  if (perc.checked == true) {
+  if (document.getElementById("perc").checked == true) {
     pro = document.getElementById("pro-bonus").innerHTML;
     pro = parseInt(pro.replace("+", ""));
   } else {
     pro = 0;
   }
-  document.getElementById("pasPer").innerHTML = 10 + wis.mod + pro;
+  document.getElementById("pasPer").innerHTML = 10 + init.wis.mod + pro;
 }
 
 // Initialization of Page Values
