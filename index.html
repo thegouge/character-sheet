@@ -1,362 +1,525 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="./css/char-sheet.css" />
+    <link rel="stylesheet" href="./css/master.css" />
+    <link rel="stylesheet" href="./css/modals.css" />
 
-<head>
-  <link rel="stylesheet" href="./css/char-sheet.css">
-  <link rel="stylesheet" href="./css/master.css">
-  <link rel="stylesheet" href="./css/modals.css">
+    <title>Character Sheet</title>
+  </head>
 
-  <title>Character Sheet</title>
-
-</head>
-
-<body>
-  <header>
-    <!-- LOGO -->
-    <h2 id="page-header">
-      <img id="top-profile" src="./assets/profile-pic.jpg" alt="profile pic">
-      <a href="https://thegouge.github.io/">Alex Gouge-Schajer | Portfolio</a>
-    </h2>
-    <!-- NAVIGATION -->
-    <nav id="main-navigation">
-      <ul>
-        <a href="https://www.linkedin.com/in/thegouge">
-          <li>
-            <img class="link-img" src="../assets/In-White-121px-TM.png" alt="LinkedIn" title="LinkedIn" />
+  <body>
+    <header>
+      <!-- LOGO -->
+      <h2 id="page-header">
+        <img
+          id="top-profile"
+          src="./assets/profile-pic.jpg"
+          alt="profile pic"
+        />
+        <a href="https://thegouge.github.io/">Alex Gouge-Schajer | Portfolio</a>
+      </h2>
+      <!-- NAVIGATION -->
+      <nav id="main-navigation">
+        <ul>
+          <a href="https://www.linkedin.com/in/thegouge">
+            <li>
+              <img
+                class="link-img"
+                src="../assets/In-White-121px-TM.png"
+                alt="LinkedIn"
+                title="LinkedIn"
+              />
+            </li>
+          </a>
+          <a href="https://www.freecodecamp.org/thegouge">
+            <li>
+              <img
+                class="link-img"
+                src="../assets/glyph.png"
+                alt="FreeCodeCamp"
+                title="Free Code Camp"
+              />
+            </li>
+          </a>
+          <a href="https://github.com/thegouge">
+            <li>
+              <img
+                class="link-img"
+                src="../assets/GitHub-Mark-Light-120px-plus.png"
+                alt="GitHub"
+                title="GitHub"
+              />
+            </li>
+          </a>
+          <li class="dropdown" title="Websites I've Built">
+            <button class="dropbtn">
+              <img
+                class="link-img"
+                src="../assets/website.png"
+                alt="Websites"
+              />
+              <span class="drop-arrow">&#709;</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="https://thegouge.github.io/Real-Estate/"
+                >First Website</a
+              >
+              <a href="https://thegouge.github.io/king-trivia-score-card/"
+                >King Trivia Score Card</a
+              >
+              <a href="https://thegouge.github.io/fcc-javascript-calculator"
+                >JavaScript Calculator</a
+              >
+            </div>
           </li>
-        </a>
-        <a href="https://www.freecodecamp.org/thegouge">
-          <li>
-            <img class="link-img" src="../assets/glyph.png" alt="FreeCodeCamp" title="Free Code Camp" />
+          <li class="dropdown" title="JavaScript Projects I've Built">
+            <button class="dropbtn">
+              <img
+                class="link-img"
+                id="js"
+                src="../assets/javascript-logo.png"
+                alt="javascript demos"
+              />
+              <span class="drop-arrow">&#709;</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="https://thegouge.github.io/links/simplejs.html"
+                >Simple JavaScript</a
+              >
+            </div>
           </li>
-        </a>
-        <a href="https://github.com/thegouge">
-          <li>
-            <img class="link-img" src="../assets/GitHub-Mark-Light-120px-plus.png" alt="GitHub" title="GitHub" />
-          </li>
-        </a>
-        <li class="dropdown" title="Websites I've Built">
-          <button class="dropbtn">
-            <img class="link-img" src="../assets/website.png" alt="Websites" />
-            <span class="drop-arrow">&#709;</span>
-          </button>
-          <div class="dropdown-content">
-            <a href="https://thegouge.github.io/Real-Estate/">First Website</a>
-            <a href="https://thegouge.github.io/king-trivia-score-card/">King Trivia Score Card</a>
-            <a href="https://thegouge.github.io/fcc-javascript-calculator">JavaScript Calculator</a>
-          </div>
-        </li>
-        <li class="dropdown" title="JavaScript Projects I've Built">
-          <button class="dropbtn">
-            <img class="link-img" id="js" src="../assets/javascript-logo.png" alt="javascript demos" />
-            <span class="drop-arrow">&#709;</span>
-          </button>
-          <div class="dropdown-content">
-            <a href="https://thegouge.github.io/links/simplejs.html">Simple JavaScript</a>
-          </div>
-        </li>
-        <a href="https://thegouge.github.io/links/contact.html" title="How to Contact Me">
-          <li>
-            <img class="link-img" src="./assets/envelope.png" alt="contact">
-          </li>
-        </a>
-      </ul>
-    </nav>
-    <div class="float-clear"></div>
-  </header>
-
-  <section class="main">
-    <div class="section-header">
-      <h2>Dungeons And Dragons Character Sheet</h2>
-    </div>
-
-    <div id="toolbar">
-      <button class="tool">Save</button>
-      <div class="loaded">
-        <button class="tool">Load</button>
-        <div class="characters">
-          <p>You Haven't Loaded any Characters Yet!</p>
-        </div>
-      </div>
-      <button class="tool" id="update-btn">Calculate</button>
-      <button class="tool" id="ap-btn">Generate your Ability Points!</button>
-      <button class="tool" id="level-btn">Level Up!</button>
-    </div>
-
-    <div class="modal" id="ap-modal">
-
-      <div class="modal-content" id="ap">
-        <span class="close">&times;</span>
-
-        <h2>Choose Your Stats!</h2>
-
-        <div class="choices">
-          <input list="strength" class="ap-list" id="strengthList" placeholder="Strength">
-          <datalist id="strength" name="strengthList"></datalist>
-
-          <input list="dexterity" class="ap-list" id="dexterityList" placeholder="Dexterity">
-          <datalist id="dexterity" name="dexterityList"></datalist>
-
-          <input list="constitution" class="ap-list" id="constitutionList" placeholder="Constitution">
-          <datalist id="constitution" name="constitutionList"></datalist>
-
-          <input list="intelligence" class="ap-list" id="intelligenceList" placeholder="Intelligence">
-          <datalist id="intelligence" name="intelligenceList"></datalist>
-
-          <input list="wisdom" class="ap-list" id="wisdomList" placeholder="Wisdom">
-          <datalist id="wisdom" name="wisdomList"></datalist>
-
-          <input list="charisma" class="ap-list" id="charismaList" placeholder="Charisma">
-          <datalist id="charisma" name="charismaList"></datalist>
-        </div>
-
-        <button class="submit" id="ap-submit">Submit</button>
-      </div>
-    </div>
-
-    <div class="character-sheet">
-
-      <!--top right block of the sheet-->
-      <div class="top-block">
-
-        <!-- Character Name -->
-        <input type="text" id="char-name" name="name" placeholder="Character Name Here!">
-
-        <div class="details">
-          <!-- Character Level -->
-          <input type="number" id="char-level" value="1" readonly>
-
-          <!-- Class Selector -->
-          <input list="class-list" id="classes" name="classes">
-          <datalist id="class-list"></datalist>
-
-          <!-- Background Selector -->
-          <input list="background-list" id="backgrounds" name="backgrounds">
-          <datalist id="background-list"></datalist>
-
-          <!-- Player Name -->
-          <input type="text" name="p-name" value="" id="player-name">
-
-          <br>
-
-          <!-- Races Selector -->
-          <input list="race-list" id="races" class="second-line">
-          <datalist id="race-list"></datalist>
-
-          <!-- Alignment Selector -->
-          <input list="alignment-list" id="alignments" name="alignments" class="second-line">
-          <datalist id="alignment-list">
-            <option value="chaotic good" id="c-g"></option>
-            <option value="neutral good" id="n-g"></option>
-            <option value="lawful good" id="l-g"></option>
-            <option value="chaotic neutral" id="c-n"></option>
-            <option value="true neutral" id="n"></option>
-            <option value="lawful neutral" id="l-n"></option>
-            <option value="chaotic evil" id="c-e"></option>
-            <option value="neutral evil" id="n-e"></option>
-            <option value="lawful evil" id="l-e"></option>
-          </datalist>
-
-          <!-- Experience Points -->
-          <input type="number" name="exp" value="0" class="second-line" id="exp">
-        </div>
-      </div>
-
-      <!-- First Column -->
-      <div class="first-column">
-
-        <!-- Ability Scores -->
-        <div class="ability-scores">
-          <div class="ap-display">
-            <input type="number" class="topstat" id="str" value="0" min="0" max="20">
-            <p class="mod" id="strMod"></p>
-          </div>
-
-          <div class="ap-display">
-            <input type="number" class="stat" id="dex" value="0" min="0" max="20">
-            <p class="mod" id="dexMod"></p>
-          </div>
-
-          <div class="ap-display">
-            <input type="number" class="stat" id="con" value="0" min="0" max="20">
-            <p class="mod" id="conMod"></p>
-          </div>
-
-          <div class="ap-display">
-            <input type="number" class="stat" id="int" value="0" min="0" max="20">
-            <p class="mod" id="intMod"></p>
-          </div>
-
-          <div class="ap-display">
-            <input type="number" class="stat" id="wis" value="0" min="0" max="20">
-            <p class="mod" id="wisMod"></p>
-          </div>
-
-          <div class="ap-display">
-            <input type="number" class="stat" id="cha" value="0" min="0" max="20">
-            <p class="mod" id="chaMod"></p>
-          </div>
-        </div>
-
-        <!-- "Pro-skills" -->
-        <div class="pro-skills">
-          <!-- Proficiency Bonus and Inspiration -->
-          <div class="pro">
-            <!-- Inspiration Counter -->
-            <input type="number" name="insp" min="0" value="0" id="inspiration" onkeydown="return false">
-            <br>
-
-            <!-- Proficiency Bonus -->
-            <p id="pro-bonus"></p>
-
-          </div>
-          <br>
-          <!-- Saving Throws and Skills -->
-          <div class="skills-st">
-            <!-- saving throws -->
-              <ul id="saving-throws">
-              </ul>
-            
-
-            <!-- Skills -->
-            <ul id="skills">
-            </ul>
-
-          </div>
-        </div>
-
-        <!-- Other Proficiencies and Passive Perception -->
-        <div class="otherPro">
-          <p id="pasPer"></p>
-          <textarea name="other Proficiencies" id="otherPro"></textarea>
-        </div>
-      </div>
-
-      <!-- Second Column -->
-      <div class="second-column">
-
-        <div class="topBlock">
-
-          <!-- Armor Class -->
-          <input type="number" id="ac" value="0">
-
-          <!-- initiative -->
-          <p id="initiative"></p>
-
-          <!-- Speed -->
-          <p id="speed">0ft</p>
-
-          <!-- Hit Points -->
-          <div class="hit-points">
-            <input type="number" name="max-hp" value="0" id="max-hp">
-            <br>
-            <input type="number" name="hp" value="0" id="hp">
-            <br>
-            <input type="number" name="temp-hp" value="0" id="temp-hp">
-          </div>
-
-          <!-- Hit Dice -->
-          <div class="hd">
-            <p id="hit-type">1d8</p>
-            <input type="number" id="hit-dice" value="0">
-          </div>
-
-          <!-- Death Saves -->
-          <div class="death-saves">
-            <input type="checkbox" name="success1" class="death-save">
-            <input type="checkbox" name="success2" class="death-save">
-            <input type="checkbox" name="success3" class="death-save" id="success3">
-            <br>
-            <input type="checkbox" name="fail1" class="death-save">
-            <input type="checkbox" name="fail2" class="death-save">
-            <input type="checkbox" name="fail3" class="death-save" id="fail3">
-          </div>
-        </div>
-
-        <!-- Attacks -->
-        <div class="atk-spell">
-          <table id="attacks">
-            <thead></thead>
-            <tbody>
-              <tr>
-                <td><input type="text" class="weaponName" id="wn1" value=""></td>
-                <td><input type="number" class="atkBonus" id="ab1" value="0"></td>
-                <td><input type="text" class="damageType" id="dt1" value=""></td>
-              </tr>
-              <tr>
-                <td><input type="text" class="weaponName" id="wn2" value=""></td>
-                <td><input type="number" class="atkBonus" id="ab2" value="0"></td>
-                <td><input type="text" class="damageType" id="dt2" value=""></td>
-              </tr>
-              <tr>
-                <td><input type="text" class="weaponName" id="wn3" value=""></td>
-                <td><input type="number" class="atkBonus" id="ab3" value="0"></td>
-                <td><input type="text" class="damageType" id="dt3" value=""></td>
-              </tr>
-            </tbody>
-          </table>
-          <textarea name="name" id="otherAtks"></textarea>
-        </div>
-
-        <!-- Money and Equipment -->
-        <div class="equipment">
-          <ul id="mons">
-            <li><input type="number" class="money" id="copper" value="0"></li>
-            <li><input type="number" class="money" id="silver" value="0"></li>
-            <li><input type="number" class="money" id="E" value="0"></li>
-            <li><input type="number" class="money" id="gold" value="0"></li>
-            <li><input type="number" class="money" id="plat" value="0"></li>
-          </ul>
-          <textarea id="equip"></textarea>
-        </div>
-      </div>
-
-      <!-- Third Column -->
-      <div class="third-column">
-
-        <!-- Personality Traits -->
-        <textarea rows="4" cols="40" id="pers-traits"></textarea>
-
-        <!-- Ideals -->
-        <textarea rows="3" cols="40" id="ideals"></textarea>
-
-        <!-- Bonds -->
-        <textarea rows="3" cols="40" id="bonds"></textarea>
-
-        <!-- Flaws -->
-        <textarea rows="3" cols="40" id="flaws"></textarea>
-
-        <!-- Features and Traits -->
-        <textarea rows="34" cols="40" id="traits"></textarea>
-      </div>
-
-    </div>
-
-  </section>
-
-  <script type="module" src="./src/classic.js" />
-
-  <!--FOOTER-->
-  <footer>
-    <div class="self">
-      <img src="./assets/profile-pic.jpg" alt="profile pic">
-      <span>Gouge-Schajer Websites &copy; 2018</span>
-    </div>
-
-    <div class="attribution">
-      Icon made by:
-      <ul>
-        <li>
-          <a class="credit" href="https://www.flaticon.com/authors/iconnice" title="Icon Ice">Icon Ice</a>
-        </li>
-      </ul>
-      from
-      <a class="credit" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> which is licensed by
-      <br>
-      <a class="credit" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
-        target="_blank">CC 3.0 BY</a>
+          <a
+            href="https://thegouge.github.io/links/contact.html"
+            title="How to Contact Me"
+          >
+            <li>
+              <img class="link-img" src="./assets/envelope.png" alt="contact" />
+            </li>
+          </a>
+        </ul>
+      </nav>
       <div class="float-clear"></div>
-    </div>
-  </footer>
-</body>
+    </header>
+
+    <section class="main">
+      <div class="section-header">
+        <h2>Dungeons And Dragons Character Sheet</h2>
+      </div>
+
+      <div id="toolbar">
+        <button class="tool">Save</button>
+        <div class="loaded">
+          <button class="tool">Load</button>
+          <div class="characters">
+            <p>You Haven't Loaded any Characters Yet!</p>
+          </div>
+        </div>
+        <button class="tool" id="update-btn">Calculate</button>
+        <button class="tool" id="ap-btn">Generate your Ability Points!</button>
+        <button class="tool" id="level-btn">Level Up!</button>
+      </div>
+
+      <div class="modal" id="ap-modal">
+        <div class="modal-content" id="ap">
+          <span class="close">&times;</span>
+
+          <h2>Choose Your Stats!</h2>
+
+          <div class="choices">
+            <input
+              list="strength"
+              class="ap-list"
+              id="strengthList"
+              placeholder="Strength"
+            />
+            <datalist id="strength" name="strengthList"></datalist>
+
+            <input
+              list="dexterity"
+              class="ap-list"
+              id="dexterityList"
+              placeholder="Dexterity"
+            />
+            <datalist id="dexterity" name="dexterityList"></datalist>
+
+            <input
+              list="constitution"
+              class="ap-list"
+              id="constitutionList"
+              placeholder="Constitution"
+            />
+            <datalist id="constitution" name="constitutionList"></datalist>
+
+            <input
+              list="intelligence"
+              class="ap-list"
+              id="intelligenceList"
+              placeholder="Intelligence"
+            />
+            <datalist id="intelligence" name="intelligenceList"></datalist>
+
+            <input
+              list="wisdom"
+              class="ap-list"
+              id="wisdomList"
+              placeholder="Wisdom"
+            />
+            <datalist id="wisdom" name="wisdomList"></datalist>
+
+            <input
+              list="charisma"
+              class="ap-list"
+              id="charismaList"
+              placeholder="Charisma"
+            />
+            <datalist id="charisma" name="charismaList"></datalist>
+          </div>
+
+          <button class="submit" id="ap-submit">Submit</button>
+        </div>
+      </div>
+
+      <div class="character-sheet">
+        <!--top right block of the sheet-->
+        <div class="top-block">
+          <!-- Character Name -->
+          <input
+            type="text"
+            id="char-name"
+            name="name"
+            placeholder="Character Name Here!"
+          />
+
+          <div class="details">
+            <!-- Character Level -->
+            <input type="number" id="char-level" value="1" readonly />
+
+            <!-- Class Selector -->
+            <input list="class-list" id="classes" name="classes" />
+            <datalist id="class-list"></datalist>
+
+            <!-- Background Selector -->
+            <input list="background-list" id="backgrounds" name="backgrounds" />
+            <datalist id="background-list"></datalist>
+
+            <!-- Player Name -->
+            <input type="text" name="p-name" value="" id="player-name" />
+
+            <br />
+
+            <!-- Races Selector -->
+            <input list="race-list" id="races" class="second-line" />
+            <datalist id="race-list"></datalist>
+
+            <!-- Alignment Selector -->
+            <input
+              list="alignment-list"
+              id="alignments"
+              name="alignments"
+              class="second-line"
+            />
+            <datalist id="alignment-list">
+              <option value="chaotic good" id="c-g"></option>
+              <option value="neutral good" id="n-g"></option>
+              <option value="lawful good" id="l-g"></option>
+              <option value="chaotic neutral" id="c-n"></option>
+              <option value="true neutral" id="n"></option>
+              <option value="lawful neutral" id="l-n"></option>
+              <option value="chaotic evil" id="c-e"></option>
+              <option value="neutral evil" id="n-e"></option>
+              <option value="lawful evil" id="l-e"></option>
+            </datalist>
+
+            <!-- Experience Points -->
+            <input
+              type="number"
+              name="exp"
+              value="0"
+              class="second-line"
+              id="exp"
+            />
+          </div>
+        </div>
+
+        <!-- First Column -->
+        <div class="first-column">
+          <!-- Ability Scores -->
+          <div class="ability-scores">
+            <div class="ap-display">
+              <input
+                type="number"
+                class="topstat"
+                id="str"
+                value="0"
+                min="0"
+                max="20"
+              />
+              <p class="mod" id="strMod"></p>
+            </div>
+
+            <div class="ap-display">
+              <input
+                type="number"
+                class="stat"
+                id="dex"
+                value="0"
+                min="0"
+                max="20"
+              />
+              <p class="mod" id="dexMod"></p>
+            </div>
+
+            <div class="ap-display">
+              <input
+                type="number"
+                class="stat"
+                id="con"
+                value="0"
+                min="0"
+                max="20"
+              />
+              <p class="mod" id="conMod"></p>
+            </div>
+
+            <div class="ap-display">
+              <input
+                type="number"
+                class="stat"
+                id="int"
+                value="0"
+                min="0"
+                max="20"
+              />
+              <p class="mod" id="intMod"></p>
+            </div>
+
+            <div class="ap-display">
+              <input
+                type="number"
+                class="stat"
+                id="wis"
+                value="0"
+                min="0"
+                max="20"
+              />
+              <p class="mod" id="wisMod"></p>
+            </div>
+
+            <div class="ap-display">
+              <input
+                type="number"
+                class="stat"
+                id="cha"
+                value="0"
+                min="0"
+                max="20"
+              />
+              <p class="mod" id="chaMod"></p>
+            </div>
+          </div>
+
+          <!-- "Pro-skills" -->
+          <div class="pro-skills">
+            <!-- Proficiency Bonus and Inspiration -->
+            <div class="pro">
+              <!-- Inspiration Counter -->
+              <input
+                type="number"
+                name="insp"
+                min="0"
+                value="0"
+                id="inspiration"
+                onkeydown="return false"
+              />
+              <br />
+
+              <!-- Proficiency Bonus -->
+              <p id="pro-bonus"></p>
+            </div>
+            <br />
+            <!-- Saving Throws and Skills -->
+            <div class="skills-st">
+              <!-- saving throws -->
+              <ul id="saving-throws"></ul>
+
+              <!-- Skills -->
+              <ul id="skills"></ul>
+            </div>
+          </div>
+
+          <!-- Other Proficiencies and Passive Perception -->
+          <div class="otherPro">
+            <p id="pasPer"></p>
+            <textarea name="other Proficiencies" id="otherPro"></textarea>
+          </div>
+        </div>
+
+        <!-- Second Column -->
+        <div class="second-column">
+          <div class="topBlock">
+            <!-- Armor Class -->
+            <input type="number" id="ac" value="0" />
+
+            <!-- initiative -->
+            <p id="initiative"></p>
+
+            <!-- Speed -->
+            <p id="speed">0ft</p>
+
+            <!-- Hit Points -->
+            <div class="hit-points">
+              <input type="number" name="max-hp" value="0" id="max-hp" />
+              <br />
+              <input type="number" name="hp" value="0" id="hp" />
+              <br />
+              <input type="number" name="temp-hp" value="0" id="temp-hp" />
+            </div>
+
+            <!-- Hit Dice -->
+            <div class="hd">
+              <p id="hit-type">1d8</p>
+              <input type="number" id="hit-dice" value="0" />
+            </div>
+
+            <!-- Death Saves -->
+            <div class="death-saves">
+              <input type="checkbox" name="success1" class="death-save" />
+              <input type="checkbox" name="success2" class="death-save" />
+              <input
+                type="checkbox"
+                name="success3"
+                class="death-save"
+                id="success3"
+              />
+              <br />
+              <input type="checkbox" name="fail1" class="death-save" />
+              <input type="checkbox" name="fail2" class="death-save" />
+              <input
+                type="checkbox"
+                name="fail3"
+                class="death-save"
+                id="fail3"
+              />
+            </div>
+          </div>
+
+          <!-- Attacks -->
+          <div class="atk-spell">
+            <table id="attacks">
+              <thead></thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="text" class="weaponName" id="wn1" value="" />
+                  </td>
+                  <td>
+                    <input type="number" class="atkBonus" id="ab1" value="0" />
+                  </td>
+                  <td>
+                    <input type="text" class="damageType" id="dt1" value="" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="weaponName" id="wn2" value="" />
+                  </td>
+                  <td>
+                    <input type="number" class="atkBonus" id="ab2" value="0" />
+                  </td>
+                  <td>
+                    <input type="text" class="damageType" id="dt2" value="" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="weaponName" id="wn3" value="" />
+                  </td>
+                  <td>
+                    <input type="number" class="atkBonus" id="ab3" value="0" />
+                  </td>
+                  <td>
+                    <input type="text" class="damageType" id="dt3" value="" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <textarea name="name" id="otherAtks"></textarea>
+          </div>
+
+          <!-- Money and Equipment -->
+          <div class="equipment">
+            <ul id="mons">
+              <li>
+                <input type="number" class="money" id="copper" value="0" />
+              </li>
+              <li>
+                <input type="number" class="money" id="silver" value="0" />
+              </li>
+              <li><input type="number" class="money" id="E" value="0" /></li>
+              <li><input type="number" class="money" id="gold" value="0" /></li>
+              <li><input type="number" class="money" id="plat" value="0" /></li>
+            </ul>
+            <textarea id="equip"></textarea>
+          </div>
+        </div>
+
+        <!-- Third Column -->
+        <div class="third-column">
+          <!-- Personality Traits -->
+          <textarea rows="4" cols="40" id="pers-traits"></textarea>
+
+          <!-- Ideals -->
+          <textarea rows="3" cols="40" id="ideals"></textarea>
+
+          <!-- Bonds -->
+          <textarea rows="3" cols="40" id="bonds"></textarea>
+
+          <!-- Flaws -->
+          <textarea rows="3" cols="40" id="flaws"></textarea>
+
+          <!-- Features and Traits -->
+          <textarea rows="34" cols="40" id="traits"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="./src/classic.js"></script>
+
+    <!--FOOTER-->
+    <footer>
+      <div class="self">
+        <img src="./assets/profile-pic.jpg" alt="profile pic" />
+        <span>Gouge-Schajer Websites &copy; 2018</span>
+      </div>
+
+      <div class="attribution">
+        Icon made by:
+        <ul>
+          <li>
+            <a
+              class="credit"
+              href="https://www.flaticon.com/authors/iconnice"
+              title="Icon Ice"
+              >Icon Ice</a
+            >
+          </li>
+        </ul>
+        from
+        <a class="credit" href="https://www.flaticon.com/" title="Flaticon"
+          >www.flaticon.com</a
+        >
+        which is licensed by
+        <br />
+        <a
+          class="credit"
+          href="http://creativecommons.org/licenses/by/3.0/"
+          title="Creative Commons BY 3.0"
+          target="_blank"
+          >CC 3.0 BY</a
+        >
+        <div class="float-clear"></div>
+      </div>
+    </footer>
+  </body>
 </html>
