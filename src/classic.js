@@ -44,48 +44,47 @@ function rollAP() {
   };
 
   const statLists = [
-    document.getElementById("strength"),
-    document.getElementById("dexterity"),
-    document.getElementById("constitution"),
-    document.getElementById("intelligence"),
-    document.getElementById("wisdom"),
-    document.getElementById("charisma")
+    document.getElementById("strengthList"),
+    document.getElementById("dexterityList"),
+    document.getElementById("constitutionList"),
+    document.getElementById("intelligenceList"),
+    document.getElementById("wisdomList"),
+    document.getElementById("charismaList")
   ];
-  let results = [];
 
-  for (const i = 0; i < init.stats.length; i++) {
-    const num = [];
-    while (num.length < 4) {
-      num.push(Math.round(Math.random() * 6) + 1);
-    }
-    const index = num.indexOf(Math.min(...num));
-    num.splice(index, 1);
-    results.push(
-      num.reduce((acc, curr) => {
-        return acc + curr;
-      })
-    );
-  }
+  let results = init.stats.map(() => {
+    const num = [
+      Math.round(Math.random() * 6) + 1,
+      Math.round(Math.random() * 6) + 1,
+      Math.round(Math.random() * 6) + 1,
+      Math.round(Math.random() * 6) + 1
+    ];
+    num.splice(num.indexOf(Math.min(...num)), 1);
+    return `${num.reduce((acc, curr) => acc + curr)}`;
+  });
 
   statLists.forEach((list) => {
+    list.addEventListener("change", (event) => {
+      const selection = results.indexOf(event.target.value) + 1;
+      results.splice(selection - 1, 1);
+
+      statLists.forEach((newList) => {
+        if (newList !== list && newList.value === "") {
+          newList.remove(selection);
+          console.log(newList);
+          console.log(results);
+        }
+      });
+    });
     results.forEach((number) => {
       const item = document.createElement("option");
       item.setAttribute("value", number);
-      item.setAttribute("class", "apList");
-      list.appendChild(item);
-    });
-
-    const chosenIndexes = [];
-    const name = list.getAttribute("name");
-    const object = document.getElementById(name);
-    object.addEventListener("change", function(event) {
-      dynamicDropDown(object);
+      item.text = number;
+      list.add(item);
     });
   });
 
-  const submit = document.getElementById("ap-submit");
-
-  submit.onclick = function() {
+  document.getElementById("ap-submit").onclick = () => {
     modal.style.display = "none";
     document.getElementById("str").value = document.getElementById(
       "strengthList"
@@ -105,8 +104,6 @@ function rollAP() {
     document.getElementById("cha").value = document.getElementById(
       "charismaList"
     ).value;
-
-    results = [];
 
     updateStats();
   };
@@ -349,6 +346,7 @@ function proficiencyChecker(lvl) {
 
 // function that updates page calculations
 function updateStats() {
+  console.log("updating stats...");
   // Calls Proficiency updating funciton
   proficiencyChecker(document.getElementById("char-level").value);
 

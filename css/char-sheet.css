@@ -472,6 +472,9 @@
   background: none;
   border: none;
 }
+label {
+  display: block;
+}
 
 @media all and (max-width: 1000px) {
   .js {
