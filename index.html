@@ -78,9 +78,9 @@
           <p>You Haven't Loaded any Characters Yet!</p>
         </div>
       </div>
-      <button class="tool" onclick="updateStats()">Calculate</button>
-      <button class="tool" id="ap-btn" onclick="rollAP()">Generate your Ability Points!</button>
-      <button class="tool" onclick="levelUp()">Level Up!</button>
+      <button class="tool" id="update-btn">Calculate</button>
+      <button class="tool" id="ap-btn">Generate your Ability Points!</button>
+      <button class="tool" id="level-btn">Level Up!</button>
     </div>
 
     <div class="modal" id="ap-modal">
@@ -214,31 +214,8 @@
           <!-- Saving Throws and Skills -->
           <div class="skills-st">
             <!-- saving throws -->
-              <ul class="saving-throws">
-                <li class="st-li">
-                  <input type="checkbox" onclick="addPro('str-st', 'str')" class="savingThrow" id="str-st">
-                  <p id="str-st-mod" class="stMod">0</p>
-                </li>
-                <li class="st-li">
-                  <input type="checkbox" onclick="addPro('dex-st', 'dex')" class="savingThrow" id="dex-st">
-                  <p id="dex-st-mod" class="stMod">0</p>
-                </li>
-                <li class="st-li">
-                  <input type="checkbox" onclick="addPro('con-st', 'con')" class="savingThrow" id="con-st">
-                  <p id="con-st-mod" class="stMod">0</p>
-                </li>
-                <li class="st-li">
-                  <input type="checkbox" onclick="addPro('int-st', 'int')" class="savingThrow" id="int-st">
-                  <p id="int-st-mod" class="stMod">0</p>
-                </li>
-                <li class="st-li">
-                  <input type="checkbox" onclick="addPro('wis-st', 'wis')" class="savingThrow" id="wis-st">
-                  <p id="wis-st-mod" class="stMod">0</p>
-                </li>
-                <li class="st-li">
-                  <input type="checkbox" onclick="addPro('cha-st', 'cha')" class="savingThrow" id="cha-st">
-                  <p id="cha-st-mod" class="stMod">0</p>
-                </li>
+              <ul id="saving-throws">
+                
               </ul>
             
 
@@ -429,7 +406,7 @@
 
   </section>
 
-  <script type="module" src="./src/char.js" />
+  <script type="module" src="./src/classic.js" />
 
   <!--FOOTER-->
   <footer>
@@ -454,5 +431,4 @@
     </div>
   </footer>
 </body>
-
 </html>

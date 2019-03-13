@@ -113,14 +113,43 @@ function rollAP() {
 }
 
 // Event Listeners
-document.getElementById("classes").addEventListener("change", function() {
+document.getElementById("classes").addEventListener("change", () => {
   classBonus(document.getElementById("classes").value);
 });
-document.getElementById("races").addEventListener("change", function() {
+document.getElementById("races").addEventListener("change", () => {
   raceBonus(document.getElementById("races").value);
 });
-document.getElementById("backgrounds").addEventListener("change", function() {
+document.getElementById("backgrounds").addEventListener("change", () => {
   backgroundBonus(document.getElementById("backgrounds").value);
+});
+document.getElementById("update-btn").addEventListener("click", () => {
+  updateStats();
+});
+document.getElementById("ap-btn").addEventListener("click", () => {
+  rollAP();
+});
+document.getElementById("level-btn").addEventListener("click", () => {
+  levelUp();
+});
+skills.savingThrows.forEach((sThrow) => {
+  const listItem = document.createElement("li");
+  listItem.setAttribute("class", "st-li");
+
+  const input = document.createElement("input");
+  input.setAttribute("type", "checkbox");
+  input.setAttribute("class", "savingThrow");
+  input.setAttribute("id", sThrow.id);
+
+  input.addEventListener("click", () => {
+    addPro(sThrow.id, sThrow.stat);
+  });
+
+  const stOutput = document.createElement("p");
+  stOutput.setAttribute("class", "stMod");
+  stOutput.setAttribute("id", sThrow.id + "-mod");
+
+  listItem.appendChild(input, stOutput);
+  document.getElementById("saving-throws").appendChild(listItem);
 });
 
 // Parse Class Selection
