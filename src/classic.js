@@ -148,8 +148,30 @@ skills.savingThrows.forEach((sThrow) => {
   stOutput.setAttribute("class", "stMod");
   stOutput.setAttribute("id", sThrow.id + "-mod");
 
-  listItem.appendChild(input, stOutput);
+  listItem.appendChild(input);
+  listItem.appendChild(stOutput);
   document.getElementById("saving-throws").appendChild(listItem);
+});
+skills.skills.forEach((skill) => {
+  const listItem = document.createElement("li");
+  listItem.setAttribute("class", "skill-li");
+
+  const input = document.createElement("input");
+  input.setAttribute("type", "checkbox");
+  input.setAttribute("class", "skill");
+  input.setAttribute("id", skill.id);
+
+  input.addEventListener("click", () => {
+    addPro(skill.id, skill.stat);
+  });
+
+  const stOutput = document.createElement("p");
+  stOutput.setAttribute("class", "skillMod");
+  stOutput.setAttribute("id", skill.id + "-mod");
+
+  listItem.appendChild(input);
+  listItem.appendChild(stOutput);
+  document.getElementById("skills").appendChild(listItem);
 });
 
 // Parse Class Selection
