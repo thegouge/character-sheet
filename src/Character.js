@@ -1,5 +1,3 @@
-import {STATUS_CODES} from "http";
-
 export default class Character {
   constructor() {
     this.str = new Stat("str");
