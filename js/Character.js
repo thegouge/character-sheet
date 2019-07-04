@@ -22,6 +22,7 @@ export default class Character {
       //   new Stat("cha"),
       // ],
     };
+    this.skills = {};
   }
   updateStats() {
     console.log("updating stats...");

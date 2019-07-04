@@ -48,6 +48,8 @@ function initializePage() {
   document.getElementById("level-btn").addEventListener("click", () => {
     levelUp();
   });
+
+  //creating Saving Throw checkboxes and modifiers
   skills.savingThrows.forEach((sThrow) => {
     const listItem = document.createElement("li");
     listItem.setAttribute("class", "st-li");
@@ -58,7 +60,7 @@ function initializePage() {
     input.setAttribute("id", sThrow.id);
 
     input.addEventListener("click", () => {
-      addPro(sThrow.id, sThrow.stat);
+      addPro(sThrow.id, "savingThrows");
     });
 
     const stOutput = document.createElement("p");
@@ -69,6 +71,8 @@ function initializePage() {
     listItem.appendChild(stOutput);
     document.getElementById("saving-throws").appendChild(listItem);
   });
+
+  //creating Skill checkboxes and modifiers
   skills.skills.forEach((skill) => {
     const listItem = document.createElement("li");
     listItem.setAttribute("class", "skill-li");
@@ -79,7 +83,7 @@ function initializePage() {
     input.setAttribute("id", skill.id);
 
     input.addEventListener("click", () => {
-      addPro(skill.id, skill.stat);
+      addPro(skill.id, "skills");
     });
 
     const stOutput = document.createElement("p");
@@ -101,9 +105,9 @@ function createListItem(value) {
 function openAPRoller() {
   console.log("Opening AP roller...");
   const modal = document.getElementById("ap-modal");
-  document
-    .getElementsByClassName("close")[0]
-    .addEventListener("click", closeAPRoller());
+  document.getElementsByClassName("close")[0].addEventListener("click", () => {
+    closeModal("ap-modal");
+  });
 
   modal.style.display = "block";
 
@@ -175,8 +179,8 @@ function rePopulateAPs(selectedList, scoreList) {
   }
 }
 
-function closeAPRoller() {
-  document.getElementById("ap-modal").style.display = "none";
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
 }
 
 function rollAP() {
@@ -208,7 +212,7 @@ function classBonus(c) {
     return option.name;
   });
 
-  pickSkillProficiencies(cl.skills.number, skillList);
+  pickSkillProficiencies(cl.skills.number, cl.skills.choice);
 
   // Set each element to an easier to read constiable
   const saves = cl.throws;
@@ -234,9 +238,67 @@ function classBonus(c) {
 }
 
 function pickSkillProficiencies(numberOfSkills, listOfSkills) {
-  window.alert(
-    `Choose ${numberOfSkills} of any of the following skills: ${listOfSkills}`
-  );
+  const modal = document.getElementById("skill-modal");
+  modal.style.display = "block";
+  document.getElementsByClassName("close")[1].addEventListener("click", (e) => {
+    closeModal("skill-modal");
+  });
+
+  const header = document.getElementById("skill-pick-header");
+  header.innerHTML = `Choose ${numberOfSkills} Skills`;
+
+  const pageList = document.getElementById("skill-sub-list");
+
+  const updateSubSkills = (id) => {
+    const checkbox = document.getElementById(id);
+    if (checkbox.checked) {
+      --numberOfSkills;
+      header.innerHTML = `Choose ${numberOfSkills} Skills`;
+    } else {
+      ++numberOfSkills;
+      header.innerHTML = `Choose ${numberOfSkills} Skills`;
+    }
+    if (numberOfSkills === 0) {
+      document.getElementById("skill-submit").style.display = "block";
+    } else {
+      document.getElementById("skill-submit").style.display = "none";
+    }
+  };
+
+  for (let index in listOfSkills) {
+    const currentSkill = listOfSkills[index];
+
+    const checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.setAttribute("class", "sub-box");
+    checkBox.setAttribute("id", "sub-" + currentSkill.id);
+    checkBox.addEventListener("click", (e) => {
+      updateSubSkills("sub-" + currentSkill.id);
+    });
+
+    const li = document.createElement("li");
+    li.setAttribute("class", "sub-skill");
+    li.innerHTML = currentSkill.name + ": ";
+    li.appendChild(checkBox);
+
+    pageList.appendChild(li);
+  }
+
+  document.getElementById("skill-submit").addEventListener("click", () => {
+    submitSkillModal(pageList.children);
+  });
+}
+
+function submitSkillModal(list) {
+  document.getElementById("skill-modal").style.display = "none";
+  for (let skill of list) {
+    const box = skill.children[0];
+    let id = box.id.substring(4);
+    if (box.checked) {
+      document.getElementById(id).checked = true;
+    }
+  }
+  updateStats();
 }
 
 // Parse Race Selection
@@ -280,11 +342,12 @@ function backgroundBonus(b) {
 
   // Exception for 'Haunted' Background
   if (background.name == "Haunted") {
-    window.alert(`Choose one:
-                Arcana
-                Investigation
-                Religion
-                Survival`);
+    pickSkillProficiencies(1, [
+      {name: "Arcana", id: "arca"},
+      {name: "Investigation", id: "inve"},
+      {name: "Religion", id: "reli"},
+      {name: "Survival", id: "surv"},
+    ]);
   } else {
     // update skill proficiencies
     background.skills.forEach(function(element) {
@@ -302,7 +365,10 @@ function backgroundBonus(b) {
 }
 
 // Calculates Saving Throw and Skill Bonuses
-function addPro(nam, sta) {
+function addPro(nam, type) {
+  const sta = skills[type].find((skill) => {
+    return skill.id === nam;
+  }).stat;
   let pro = document.getElementById("pro-bonus").innerHTML;
   pro = parseInt(pro.replace("+", ""));
 
@@ -374,12 +440,12 @@ function updateStats() {
   }
   // Calculate Saving Throw Modifiers
   skills.savingThrows.map(function(save) {
-    addPro(save.id, save.stat);
+    addPro(save.id, "savingThrows");
   });
 
   //Calculate Skill Modifiers
   skills.skills.map(function(skill) {
-    addPro(skill.id, skill.stat);
+    addPro(skill.id, "skills");
   });
 
   // Calculating initiative Mod
