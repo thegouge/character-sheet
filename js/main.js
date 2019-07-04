@@ -195,68 +195,6 @@ function rollAP() {
   return results;
 }
 
-// Event Listeners
-document.getElementById("classes").addEventListener("change", () => {
-  classBonus(document.getElementById("classes").value);
-});
-document.getElementById("races").addEventListener("change", () => {
-  raceBonus(document.getElementById("races").value);
-});
-document.getElementById("backgrounds").addEventListener("change", () => {
-  backgroundBonus(document.getElementById("backgrounds").value);
-});
-document.getElementById("update-btn").addEventListener("click", () => {
-  updateStats();
-});
-document.getElementById("ap-btn").addEventListener("click", () => {
-  openAPRoller();
-});
-document.getElementById("level-btn").addEventListener("click", () => {
-  levelUp();
-});
-skills.savingThrows.forEach((sThrow) => {
-  const listItem = document.createElement("li");
-  listItem.setAttribute("class", "st-li");
-
-  const input = document.createElement("input");
-  input.setAttribute("type", "checkbox");
-  input.setAttribute("class", "savingThrow");
-  input.setAttribute("id", sThrow.id);
-
-  input.addEventListener("click", () => {
-    addPro(sThrow.id, sThrow.stat);
-  });
-
-  const stOutput = document.createElement("p");
-  stOutput.setAttribute("class", "stMod");
-  stOutput.setAttribute("id", sThrow.id + "-mod");
-
-  listItem.appendChild(input);
-  listItem.appendChild(stOutput);
-  document.getElementById("saving-throws").appendChild(listItem);
-});
-skills.skills.forEach((skill) => {
-  const listItem = document.createElement("li");
-  listItem.setAttribute("class", "skill-li");
-
-  const input = document.createElement("input");
-  input.setAttribute("type", "checkbox");
-  input.setAttribute("class", "skill");
-  input.setAttribute("id", skill.id);
-
-  input.addEventListener("click", () => {
-    addPro(skill.id, skill.stat);
-  });
-
-  const stOutput = document.createElement("p");
-  stOutput.setAttribute("class", "skillMod");
-  stOutput.setAttribute("id", skill.id + "-mod");
-
-  listItem.appendChild(input);
-  listItem.appendChild(stOutput);
-  document.getElementById("skills").appendChild(listItem);
-});
-
 // Parse Class Selection
 // TODO: add a skill choosing popup
 function classBonus(c) {
@@ -269,16 +207,15 @@ function classBonus(c) {
   const skillList = cl.skills.choice.map(function(option) {
     return option.name;
   });
-  window.alert(
-    `Choose ${cl.skills.number} of any of the following skills: ${skillList}`
-  );
+
+  pickSkillProficiencies(cl.skills.number, skillList);
 
   // Set each element to an easier to read constiable
   const saves = cl.throws;
-  let otherPro = document.getElementById("otherPro").innerHTML;
-  let spells = document.getElementById("otherAtks").innerHTML;
-  let equip = document.getElementById("equip").innerHTML;
-  let traits = document.getElementById("traits").innerHTML;
+  const otherPro = document.getElementById("otherPro");
+  const spells = document.getElementById("otherAtks");
+  const equip = document.getElementById("equip");
+  const traits = document.getElementById("traits");
 
   // Update elements based on json info
   document.getElementById("hit-type").innerHTML = cl.hitDice;
@@ -287,19 +224,19 @@ function classBonus(c) {
   cl.throws.forEach((item) => {
     document.getElementById(item.id).checked = true;
   });
-  otherPro = otherPro + cl.proficiencies;
-  spells = spells + cl.altAttacks;
-  equip = equip + cl.equipment;
-  traits = traits + cl.other;
-
-  // Apply updated info to DOM
-  document.getElementById("otherPro").innerHTML = otherPro;
-  document.getElementById("otherAtks").innerHTML = spells;
-  document.getElementById("equip").innerHTML = equip;
-  document.getElementById("traits").innerHTML = traits;
+  otherPro.innerHTML += cl.proficiencies;
+  spells.innerHTML += cl.altAttacks;
+  equip.innerHTML += cl.equipment;
+  traits.innerHTML += cl.other;
 
   // Update the rest of the page
   updateStats();
+}
+
+function pickSkillProficiencies(numberOfSkills, listOfSkills) {
+  window.alert(
+    `Choose ${numberOfSkills} of any of the following skills: ${listOfSkills}`
+  );
 }
 
 // Parse Race Selection
@@ -309,24 +246,20 @@ function raceBonus(r) {
     return item.name == r;
   });
 
-  // Set each element to an easier to read constiable
-  const bonuses = race.character.stats;
-  const otherPro = document.getElementById("otherPro").innerHTML;
-  const traits = document.getElementById("traits").innerHTML;
+  // Set each element to an easier to read variable
+  const bonuses = race.stats;
+  const otherPro = document.getElementById("otherPro");
+  const traits = document.getElementById("traits");
 
   // Update elements based on json info
-  for (const i = 0; i < bonuses.length; i++) {
+  for (let i = 0; i < bonuses.length; i++) {
     document.getElementById(bonuses[i].name).value =
-      parseInt(document.getElementById(race.character.stats[i].name).value) +
-      race.character.stats[i].bonus;
+      parseInt(document.getElementById(race.stats[i].name).value) +
+      race.stats[i].bonus;
   }
   document.getElementById("speed").innerHTML = race.speed;
-  otherPro = otherPro + race.languages;
-  traits = traits + race.other;
-
-  // Apply Updated info to DOM
-  document.getElementById("otherPro").innerHTML = otherPro;
-  document.getElementById("traits").innerHTML = traits;
+  otherPro.innerHTML += race.languages;
+  traits.innerHTML += race.other;
 
   // Update the rest of the page
   updateStats();
@@ -335,15 +268,15 @@ function raceBonus(r) {
 // Parse Background Selection
 function backgroundBonus(b) {
   // characterialize background selection from json
-  const background = backgrounds.find(function(item) {
+  const background = backgrounds.find((item) => {
     return item.name == b;
   });
 
   // Set each element to an easier to read constiable
-  const otherPro = document.getElementById("otherPro").innerHTML;
-  const traits = document.getElementById("traits").innerHTML;
-  const equip = document.getElementById("equip").innerHTML;
-  const gold = document.getElementById("gold").value;
+  const otherPro = document.getElementById("otherPro");
+  const traits = document.getElementById("traits");
+  const equip = document.getElementById("equip");
+  const gold = document.getElementById("gold");
 
   // Exception for 'Haunted' Background
   if (background.name == "Haunted") {
@@ -359,16 +292,10 @@ function backgroundBonus(b) {
     });
   }
   // Update elements based on json info
-  gold = String(parseInt(gold + background.gold));
-  otherPro = otherPro + background.pros;
-  equip = equip + background.equip;
-  traits = traits + background.other;
-
-  // Apply Updates to DOM
-  document.getElementById("otherPro").innerHTML = otherPro;
-  document.getElementById("traits").innerHTML = traits;
-  document.getElementById("equip").innerHTML = equip;
-  document.getElementById("gold").value = gold;
+  gold.value = String(parseInt(gold.value + background.gold));
+  otherPro.innerHTML += background.pros;
+  equip.innerHTML += background.equip;
+  traits.innerHTML += background.other;
 
   // Update the rest of the page
   updateStats();

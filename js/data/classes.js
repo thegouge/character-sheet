@@ -247,7 +247,7 @@ export const classes = [
 			]
 		},
 		"proficiencies": " Armor: Light, Medium, Sheilds; Weapons: Simple Weapons",
-		"altAttacks": " Cantrips: 3; Known Spells: ???",
+		"altAttacks": " Cantrips: 3; Known Spells: 1 + Wisdom modifier",
 		"equipment": " Mace or Warhammer (if proficient), Scale Mail or Leather Armor or Chain Mail (if proficient), Light Xbow with bolts x20 or any simple weapon, Preist's Pack or Explorer's pack, Sheild, Holy Symbol",
 		"other": " spellcasting, 'divine domain'"
 	},
