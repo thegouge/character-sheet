@@ -9,15 +9,16 @@ import {backgrounds} from "./data/backgrounds.js";
 
 const character = new Character();
 
-function rollAP() {
+function openAPRoller() {
+  console.log("Opening AP roller...");
   const modal = document.getElementById("ap-modal");
-  const close = document.getElementsByClassName("close")[0];
+  document
+    .getElementsByClassName("close")[0]
+    .addEventListener("click", closeAPRoller());
 
   modal.style.display = "block";
-  close.onclick = function() {
-    modal.style.display = "none";
-    results = [];
-  };
+
+  let results = rollAP();
 
   const statLists = [
     document.getElementById("strengthList"),
@@ -28,30 +29,11 @@ function rollAP() {
     document.getElementById("charismaList"),
   ];
 
-  let results = character.stats.map(() => {
-    const num = [
-      Math.round(Math.random() * 6) + 1,
-      Math.round(Math.random() * 6) + 1,
-      Math.round(Math.random() * 6) + 1,
-      Math.round(Math.random() * 6) + 1,
-    ];
-    num.splice(num.indexOf(Math.min(...num)), 1);
-    return `${num.reduce((acc, curr) => acc + curr)}`;
-  });
-
   statLists.forEach((list) => {
-    list.addEventListener("change", (event) => {
-      const selection = results.indexOf(event.target.value) + 1;
-      results.splice(selection - 1, 1);
-
-      statLists.forEach((newList) => {
-        if (newList !== list && newList.value === "") {
-          newList.remove(selection);
-          console.log(newList);
-          console.log(results);
-        }
-      });
+    list.addEventListener("change", () => {
+      rePopulateAPs(list, results);
     });
+
     results.forEach((number) => {
       const item = document.createElement("option");
       item.setAttribute("value", number);
@@ -85,6 +67,45 @@ function rollAP() {
   };
 }
 
+function rePopulateAPs(selectedList, scoreList) {
+  const otherLists = [...document.getElementsByClassName("ap-list")].filter(
+    (element) => element !== selectedList && !element.value
+  );
+  const selectedIndex = scoreList.indexOf(parseInt(selectedList.value));
+  scoreList.splice(selectedIndex, 1);
+
+  for (let i in otherLists) {
+    let currentList = otherLists[i];
+    currentList.innerHTML = "<option value=''>Choose!</option>";
+    scoreList.forEach((score) => {
+      const item = document.createElement("option");
+      item.setAttribute("value", score);
+      item.text = score;
+      currentList.add(item);
+    });
+  }
+}
+
+function closeAPRoller() {
+  document.getElementById("ap-modal").style.display = "none";
+}
+
+function rollAP() {
+  const results = [];
+  for (let i = 0; i < 6; i++) {
+    const num = [
+      Math.round(Math.random() * 6) + 1,
+      Math.round(Math.random() * 6) + 1,
+      Math.round(Math.random() * 6) + 1,
+      Math.round(Math.random() * 6) + 1,
+    ];
+    num.splice(num.indexOf(Math.min(...num)), 1);
+    results.push(num.reduce((acc, curr) => acc + curr));
+  }
+
+  return results;
+}
+
 // Event Listeners
 document.getElementById("classes").addEventListener("change", () => {
   classBonus(document.getElementById("classes").value);
@@ -99,7 +120,7 @@ document.getElementById("update-btn").addEventListener("click", () => {
   updateStats();
 });
 document.getElementById("ap-btn").addEventListener("click", () => {
-  rollAP();
+  openAPRoller();
 });
 document.getElementById("level-btn").addEventListener("click", () => {
   levelUp();
@@ -271,7 +292,7 @@ function addPro(nam, sta) {
 
   const box = document.getElementById(nam);
 
-  let bon = character[sta].mod;
+  let bon = character.stats[sta].mod;
 
   if (box.checked == true) {
     bon = bon + pro;
@@ -327,12 +348,14 @@ function updateStats() {
   proficiencyChecker(document.getElementById("char-level").value);
 
   // Calcualte Ability Modifiers
-  character.stats.forEach(function(s) {
-    s.abilityScore = document.getElementById(s.name).value;
-    s.modGen(s.abilityScore);
-    document.getElementById(s.name + "Mod").innerHTML = s.mod;
-  });
-
+  // console.log({...character.stats});
+  for (let s in character.stats) {
+    let characterStat = character.stats[s];
+    characterStat.setScore(document.getElementById(characterStat.name).value);
+    characterStat.modGen(characterStat.abilityScore);
+    document.getElementById(characterStat.name + "Mod").innerHTML =
+      characterStat.mod;
+  }
   // Calculate Saving Throw Modifiers
   skills.savingThrows.map(function(save) {
     addPro(save.id, save.stat);
@@ -344,7 +367,7 @@ function updateStats() {
   });
 
   // Calculating initiative Mod
-  document.getElementById("initiative").innerHTML = character.stats[1].mod;
+  document.getElementById("initiative").innerHTML = character.stats.dex.mod;
 
   // Calculate Passive Perception
   let pro;
@@ -354,7 +377,8 @@ function updateStats() {
   } else {
     pro = 0;
   }
-  document.getElementById("pasPer").innerHTML = 10 + character.wis.mod + pro;
+  document.getElementById("pasPer").innerHTML =
+    10 + character.stats.wis.mod + pro;
 }
 
 // characterialization of Page Values
