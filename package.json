@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Dungeons and Dragons Character Sheet",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "stencil": "0.0.5"
+  },
   "devDependencies": {
     "eslint": "^5.15.1",
     "eslint-config-airbnb": "^17.1.0",
