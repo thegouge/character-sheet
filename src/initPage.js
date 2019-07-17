@@ -1,4 +1,15 @@
-export default function initializePage() {
+import {skills} from "./data/skills.js";
+import {races} from "./data/races.js";
+import {classes} from "./data/classes.js";
+import {backgrounds} from "./data/backgrounds.js";
+
+import {openAPRoller} from "./modals.js";
+
+function createListItem(value) {
+  return `<option value=${value} />`;
+}
+
+export default function initializePage(character) {
   const classList = document.getElementById("class-list");
   const backgroundList = document.getElementById("background-list");
   const raceList = document.getElementById("race-list");
@@ -29,7 +40,7 @@ export default function initializePage() {
     backgroundBonus(document.getElementById("backgrounds").value);
   });
   document.getElementById("update-btn").addEventListener("click", () => {
-    updateStats();
+    character.updateStats();
   });
   document.getElementById("ap-btn").addEventListener("click", () => {
     openAPRoller();
@@ -38,31 +49,8 @@ export default function initializePage() {
     levelUp();
   });
 
-  //creating Saving Throw checkboxes and modifiers
-  skills.savingThrows.forEach((sThrow) => {
-    const listItem = document.createElement("li");
-    listItem.setAttribute("class", "st-li");
-
-    const input = document.createElement("input");
-    input.setAttribute("type", "checkbox");
-    input.setAttribute("class", "savingThrow");
-    input.setAttribute("id", sThrow.id);
-
-    input.addEventListener("click", () => {
-      addPro(sThrow.id, "savingThrows");
-    });
-
-    const stOutput = document.createElement("p");
-    stOutput.setAttribute("class", "stMod");
-    stOutput.setAttribute("id", sThrow.id + "-mod");
-
-    listItem.appendChild(input);
-    listItem.appendChild(stOutput);
-    document.getElementById("saving-throws").appendChild(listItem);
-  });
-
   //creating Skill checkboxes and modifiers
-  skills.skills.forEach((skill) => {
+  skills.forEach((skill) => {
     const listItem = document.createElement("li");
     listItem.setAttribute("class", "skill-li");
 
@@ -72,7 +60,7 @@ export default function initializePage() {
     input.setAttribute("id", skill.id);
 
     input.addEventListener("click", () => {
-      addPro(skill.id, "skills");
+      addPro(skill.id);
     });
 
     const stOutput = document.createElement("p");
@@ -81,8 +69,10 @@ export default function initializePage() {
 
     listItem.appendChild(input);
     listItem.appendChild(stOutput);
-    document.getElementById("skills").appendChild(listItem);
+    skill.id.length > 4
+      ? document.getElementById("saving-throws").appendChild(listItem)
+      : document.getElementById("skills").appendChild(listItem);
   });
 
-  updateStats();
+  character.updateStats();
 }
