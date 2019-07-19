@@ -35,10 +35,10 @@ export default function initializePage(character) {
     character.classBonus(document.getElementById("classes").value);
   });
   document.getElementById("races").addEventListener("change", () => {
-    raceBonus(document.getElementById("races").value);
+    character.raceBonus(document.getElementById("races").value);
   });
   document.getElementById("backgrounds").addEventListener("change", () => {
-    backgroundBonus(document.getElementById("backgrounds").value);
+    character.backgroundBonus(document.getElementById("backgrounds").value);
   });
   document.getElementById("update-btn").addEventListener("click", () => {
     character.updateStats();
@@ -47,7 +47,7 @@ export default function initializePage(character) {
     openAPRoller();
   });
   document.getElementById("level-btn").addEventListener("click", () => {
-    levelUp();
+    character.levelUp();
   });
 
   //creating Skill checkboxes and modifiers

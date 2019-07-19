@@ -7,7 +7,7 @@ import {pickSkillProficiencies} from "./modals.js";
 
 export default class Character {
   constructor(level = 1) {
-    this.characterName = "";
+    this.characterName = "Default Name";
     this.characterClass = "";
     this.characterRace = "";
     this.characterBackground = "";
@@ -90,6 +90,8 @@ export default class Character {
   }
 
   levelUp() {
+    console.log(`${this.characterName} is leveling up!`);
+
     if (this.level === 20) {
       alert("You're Already Max Level!");
     } else {
@@ -130,6 +132,10 @@ export default class Character {
 
   updateStats() {
     console.log("updating character...");
+
+    // Update Character Name
+    this.characterName = document.getElementById("char-name").value;
+    console.log(document.getElementById("char-name").value);
 
     // Update Character Proficiency Bonus
     this.setProBonus();
