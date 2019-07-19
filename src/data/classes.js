@@ -2,7 +2,7 @@ export const classes = [
     {
 		"name": "Barbarian",
 		"hitDice": "1d12",
-		"hp": 12,
+		
 		"throws": [
             {
 				"checked": true,
@@ -64,7 +64,7 @@ export const classes = [
 	{
 		"name": "Bard",
 		"hitDice": "1d8",
-		"hp": 8,
+		
 		"throws": [
             {
 				"name": "Dexterity",
@@ -198,7 +198,7 @@ export const classes = [
 	{
 		"name": "Cleric",
 		"hitDice": "1d8",
-		"hp": 8,
+		
 		"throws": [
             {
 				"name": "Wisdom",
@@ -254,7 +254,7 @@ export const classes = [
 	{
 		"name": "Druid",
 		"hitDice": "1d8",
-		"hp": 8,
+		
 		"throws": [
             {
 				"name": "Intelligence",
@@ -328,7 +328,7 @@ export const classes = [
 	{
 		"name": "Fighter",
 		"hitDice": "1d10",
-		"hp": 10,
+		
 		"throws": [
             {
 			"name": "Strength",
@@ -400,7 +400,7 @@ export const classes = [
 	{
 		"name": "Monk",
 		"hitDice": "1d8",
-		"hp": 8,
+		
 		"throws": [
             {
 				"name": "Strength",
@@ -462,7 +462,7 @@ export const classes = [
 	{
 		"name": "Paladin",
 		"hitDice": "1d10",
-		"hp": 10,
+		
 		"throws": [
             {
 				"name": "Wisdom",
@@ -524,7 +524,7 @@ export const classes = [
 	{
 		"name": "Ranger",
 		"hitDice": "1d10",
-		"hp": 10,
+		
 		"throws": [
             {
 				"name": "Strength",
@@ -598,7 +598,7 @@ export const classes = [
 	{
 		"name": "Rogue",
 		"hitDice": "1d8",
-		"hp": 8,
+		
 		"throws": [
             {
 				"name": "Dexterity",
@@ -690,7 +690,7 @@ export const classes = [
 	{
 		"name": "Sorcerer",
 		"hitDice": "1d6",
-		"hp": 6,
+		
 		"throws": [
             {
 				"name": "Constitution",
@@ -752,7 +752,7 @@ export const classes = [
 	{
 		"name": "Warlock",
 		"hitDice": "1d8",
-		"hp": 8,
+		
 		"throws": [
             {
 				"name": "Wisdom",
@@ -820,7 +820,7 @@ export const classes = [
 	{
 		"name": "Wizard",
 		"hitDice": "1d6",
-		"hp": 6,
+		
 		"throws": [
             {
 				"name": "Intelligence",

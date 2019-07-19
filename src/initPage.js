@@ -13,6 +13,7 @@ export default function initializePage(character) {
   const classList = document.getElementById("class-list");
   const backgroundList = document.getElementById("background-list");
   const raceList = document.getElementById("race-list");
+  const AbilityScores = [...document.getElementsByClassName("stat")];
 
   // Populate Class List
   classes.forEach((playerClass) => {
@@ -31,7 +32,7 @@ export default function initializePage(character) {
 
   // Event Listeners
   document.getElementById("classes").addEventListener("change", () => {
-    classBonus(document.getElementById("classes").value);
+    character.classBonus(document.getElementById("classes").value);
   });
   document.getElementById("races").addEventListener("change", () => {
     raceBonus(document.getElementById("races").value);
@@ -60,19 +61,18 @@ export default function initializePage(character) {
     input.setAttribute("id", skill.id);
 
     input.addEventListener("click", () => {
-      addPro(skill.id);
+      character.addSkillPro(skill.id);
     });
 
-    const stOutput = document.createElement("p");
-    stOutput.setAttribute("class", "skillMod");
-    stOutput.setAttribute("id", skill.id + "-mod");
+    const skillModifier = document.createElement("p");
+    skillModifier.setAttribute("class", "skillMod");
+    skillModifier.setAttribute("id", skill.id + "-mod");
+    skillModifier.innerHTML = character.stats[skill.stat].mod;
 
     listItem.appendChild(input);
-    listItem.appendChild(stOutput);
+    listItem.appendChild(skillModifier);
     skill.id.length > 4
       ? document.getElementById("saving-throws").appendChild(listItem)
       : document.getElementById("skills").appendChild(listItem);
   });
-
-  character.updateStats();
 }

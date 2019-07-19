@@ -3,15 +3,26 @@ import {races} from "./data/races.js";
 import {classes} from "./data/classes.js";
 import {backgrounds} from "./data/backgrounds.js";
 
+import {pickSkillProficiencies} from "./modals.js";
+
 export default class Character {
   constructor(level = 1) {
     this.characterName = "";
     this.characterClass = "";
     this.characterRace = "";
     this.characterBackground = "";
+    this.alignment = "";
+    this.exp = 0;
     this.playerName = "";
     this.level = level;
+    this.hitDice = level;
+    this.hitType = 8;
+    this.HP = 7;
     this.pros = [];
+    this.otherPro = "";
+    this.spells = "";
+    this.equip = "";
+    this.traits = "";
     this.stats = {
       str: new Stat("str"),
       dex: new Stat("dex"),
@@ -23,20 +34,14 @@ export default class Character {
     this.setProBonus();
   }
 
-  rollAP() {
-    const results = [];
-    for (let i = 0; i < 6; i++) {
-      const num = [
-        Math.round(Math.random() * 6) + 1,
-        Math.round(Math.random() * 6) + 1,
-        Math.round(Math.random() * 6) + 1,
-        Math.round(Math.random() * 6) + 1,
-      ];
-      num.splice(num.indexOf(Math.min(...num)), 1);
-      results.push(num.reduce((acc, curr) => acc + curr));
+  calcMaxHP() {
+    const baseHP = this.hitType + this.stats.con.mod;
+    let extraHP = 0;
+    for (let i = 1; i < this.level; i++) {
+      extraHP += this.hitType / 2 + 1;
     }
 
-    return results;
+    return baseHP + extraHP;
   }
 
   setProBonus() {
@@ -64,61 +69,87 @@ export default class Character {
     }
 
     this.proBonus = bonus;
-    document.getElementById("pro-bonus").innerHTML = `+${this.proBonus}`;
   }
 
-  addPro(name) {
-    const sta = skills.find((skill) => {
-      return skill.id === name;
-    }).stat;
-    let pro = document.getElementById("pro-bonus").innerHTML;
-    pro = parseInt(pro.replace("+", ""));
+  addSkillPro(skillName) {
+    const checkedSkill = skills.find((skill) => skill.id === skillName);
+    this.pros.push(checkedSkill);
 
-    const box = document.getElementById(name);
+    this.calcSkillModifier(skillName);
+  }
 
-    let bon = this.stats[sta].mod;
+  calcSkillModifier(skillName) {
+    const skill = skills.find((skill) => skill.id === skillName);
+    let modifier = this.pros.find((skill) => skill.id === skillName)
+      ? this.proBonus
+      : 0;
 
-    if (box.checked == true) {
-      bon = bon + pro;
-      if (bon >= 0) {
-        bon = String(+bon);
-      } else {
-        bon = String(bon);
-      }
+    modifier += this.stats[skill.stat].mod;
+
+    document.getElementById(skillName + "-mod").innerHTML = modifier;
+  }
+
+  levelUp() {
+    if (this.level === 20) {
+      alert("You're Already Max Level!");
     } else {
-      if (bon >= 0) {
-        bon = String(+bon);
-      } else {
-        bon = String(bon);
-      }
+      this.level++;
+      document.getElementById("char-level").value = this.level;
+      this.setProBonus();
     }
-    document.getElementById(name + "-mod").innerHTML = bon;
+
+    // Make the Ability Point Generation button go away
+    document.getElementById("ap").style.display = "none";
+  }
+
+  classBonus(className) {
+    // characterializes class selection from json
+    const chosenClass = classes.find((item) => {
+      return item.name == className;
+    });
+
+    pickSkillProficiencies(
+      chosenClass.skills.number,
+      chosenClass.skills.choice
+    );
+
+    // Update elements based on json info
+    this.hitType = chosenClass.hitDice;
+    this.HP = this.calcMaxHP();
+    chosenClass.throws.forEach((save) => {
+      document.getElementById(save.id).checked = true;
+      this.pros.push(save);
+    });
+    this.otherPro += chosenClass.proficiencies;
+    this.spells += chosenClass.altAttacks;
+    this.equip += chosenClass.equipment;
+    this.traits += chosenClass.other;
+
+    this.updateStats();
   }
 
   updateStats() {
-    console.log("updating stats...");
-    // Calls Proficiency updating funciton
+    console.log("updating character...");
+
+    // Update Character Proficiency Bonus
     this.setProBonus();
 
-    // Calcualte Ability Modifiers
+    // Getting Ability Scores from the Document
     for (let stat in this.stats) {
-      let currentStat = this.stats[stat];
-      currentStat.abilityScore = document.getElementById(stat).value;
-      currentStat.modGen();
-      document.getElementById(stat + "Mod").innerHTML = currentStat.mod;
+      let statAsWritten = document.getElementById(stat);
+      let characterStat = this.stats[stat];
+
+      characterStat.abilityScore = parseInt(statAsWritten.value);
+      characterStat.modGen();
     }
 
     //Calculate Skill Modifiers
     skills.map((skill) => {
-      this.addPro(skill.id);
+      if (document.getElementById(skill.id).checked) {
+        this.pros.push(skill);
+      }
+      this.calcSkillModifier(skill.id);
     });
-
-    // Calculate Passive Perception
-    let pro = 0;
-    if (document.getElementById("perc").checked == true) {
-      pro = this.proBonus;
-    }
-    document.getElementById("pasPer").innerHTML = 10 + this.stats.wis.mod + pro;
 
     // Calculating initiative Mod
     document.getElementById("initiative").innerHTML = this.stats.dex.mod;
@@ -128,12 +159,11 @@ export default class Character {
 class Stat {
   constructor(name) {
     this.name = name;
-    this.element = document.getElementById(name);
-    this.abilityScore = this.element.value;
-    this.modGen();
+    this.abilityScore = 8;
+    this.mod = -1;
   }
   setScore(newScore) {
-    this.abilityScore = newScore;
+    this.abilityScore = parseInt(newScore);
   }
   modGen() {
     this.mod = Math.floor((this.abilityScore - 10) / 2);
