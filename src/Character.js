@@ -130,6 +130,67 @@ export default class Character {
     this.updateStats();
   }
 
+  chooseRace(r) {
+    // characterialize race choice from json
+    const race = races.find((item) => {
+      return item.name == r;
+    });
+
+    // Set each element to an easier to read variable
+    const bonuses = race.stats;
+    const otherPro = document.getElementById("otherPro");
+    const traits = document.getElementById("traits");
+
+    // Update elements based on json info
+    for (let i = 0; i < bonuses.length; i++) {
+      document.getElementById(bonuses[i].name).value =
+        parseInt(document.getElementById(race.stats[i].name).value) +
+        race.stats[i].bonus;
+    }
+    document.getElementById("speed").innerHTML = race.speed;
+    otherPro.innerHTML += race.languages;
+    traits.innerHTML += race.other;
+
+    // Update the rest of the page
+    this.updateStats();
+  }
+
+  chooseBackground(b) {
+    // characterialize background selection from json
+    const background = backgrounds.find((item) => {
+      return item.name == b;
+    });
+
+    // Set each element to an easier to read constiable
+    const otherPro = document.getElementById("otherPro");
+    const traits = document.getElementById("traits");
+    const equip = document.getElementById("equip");
+    const gold = document.getElementById("gold");
+
+    // Exception for 'Haunted' Background
+    if (background.name == "Haunted") {
+      pickSkillProficiencies(1, [
+        {name: "Arcana", id: "arca"},
+        {name: "Investigation", id: "inve"},
+        {name: "Religion", id: "reli"},
+        {name: "Survival", id: "surv"},
+      ]);
+    } else {
+      // update skill proficiencies
+      background.skills.forEach(function(element) {
+        document.getElementById(element.id).checked = true;
+      });
+    }
+    // Update elements based on json info
+    gold.value = String(parseInt(gold.value + background.gold));
+    otherPro.innerHTML += background.pros;
+    equip.innerHTML += background.equip;
+    traits.innerHTML += background.other;
+
+    // Update the rest of the page
+    this.updateStats();
+  }
+
   updateStats() {
     console.log("updating character...");
 

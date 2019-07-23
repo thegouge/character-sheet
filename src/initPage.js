@@ -35,10 +35,10 @@ export default function initializePage(character) {
     character.classBonus(document.getElementById("classes").value);
   });
   document.getElementById("races").addEventListener("change", () => {
-    character.raceBonus(document.getElementById("races").value);
+    character.chooseRace(document.getElementById("races").value);
   });
   document.getElementById("backgrounds").addEventListener("change", () => {
-    character.backgroundBonus(document.getElementById("backgrounds").value);
+    character.chooseBackground(document.getElementById("backgrounds").value);
   });
   document.getElementById("update-btn").addEventListener("click", () => {
     character.updateStats();
