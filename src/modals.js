@@ -97,7 +97,10 @@ function rePopulateAPs(selectedList, scoreList) {
   }
 }
 
-export function pickSkillProficiencies(numberOfSkills, listOfSkills) {
+export function pickSkillProficiencies(numberOfSkills, unfilteredSkillList) {
+  const listOfSkills = unfilteredSkillList.filter((skill) => {
+    return !document.getElementById(skill.id).checked;
+  });
   const modal = document.getElementById("skill-modal");
   modal.style.display = "block";
   document.getElementsByClassName("close")[1].addEventListener("click", (e) => {
@@ -111,6 +114,7 @@ export function pickSkillProficiencies(numberOfSkills, listOfSkills) {
 
   const updateSubSkills = (id) => {
     const checkbox = document.getElementById(id);
+    console.log(checkbox);
     if (checkbox.checked) {
       --numberOfSkills;
       header.innerHTML = `Choose ${numberOfSkills} Skills`;

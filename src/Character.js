@@ -196,7 +196,6 @@ export default class Character {
 
     // Update Character Name
     this.characterName = document.getElementById("char-name").value;
-    console.log(document.getElementById("char-name").value);
 
     // Update Character Proficiency Bonus
     this.setProBonus();
