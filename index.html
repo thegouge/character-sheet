@@ -15,11 +15,12 @@
       </div>
 
       <div id="toolbar">
-        <button class="tool">Save</button>
+        <button class="tool" id="save-btn">Save</button>
         <div class="loaded">
-          <button class="tool">Load</button>
+          <button class="tool" id="load-btn">Load</button>
           <div class="characters">
-            <p>You Haven't Loaded any Characters Yet!</p>
+            <p id="no-chars">You Haven't Loaded any Characters Yet!</p>
+            <ul id="saved-char-list"></ul>
           </div>
         </div>
         <button class="tool" id="update-btn">Calculate</button>

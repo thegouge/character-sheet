@@ -4,10 +4,68 @@ import initializePage from "./initPage.js";
 
 // Creation of the Ability Score Object
 
-export const character = new Character();
+export let character = new Character();
+
+export function save() {
+  console.log(`saving ${character.charName}`);
+
+  localStorage.setItem("D&D-" + character.charName, JSON.stringify(character));
+
+  const characterDiv = document.getElementById("saved-char-list");
+
+  characterDiv.innerHTML += `<li class="character" id="${character.charName}">${
+    character.charName
+  }</li> <span class="delchar" id="${character.charName}-del">X</span>`;
+
+  document.getElementById(character.charName).addEventListener("click", () => {
+    load(character.charName);
+  });
+
+  document
+    .getElementById(`${character.charName}-del`)
+    .addEventListener("click", () => {
+      deleteCharacter(character.charName);
+    });
+
+  updatePage();
+}
+
+function load(name) {
+  console.log(`loading up ${name}`);
+
+  character = new Character(JSON.parse(localStorage.getItem("D&D-" + name)));
+
+  console.log(character);
+
+  updatePage();
+}
+
+function deleteCharacter(name) {
+  console.log(`deleting ${name}`);
+
+  localStorage.removeItem("D&D-" + name);
+
+  updatePage();
+}
 
 function updatePage() {
   console.log("updating page...");
+
+  // Update Character Load modal
+  const charList = document.getElementById("saved-char-list");
+
+  if (charList.children.length > 0) {
+    document.getElementById("no-chars").setAttribute("style", "display: none;");
+
+    const newCharList = document.getElementById("saved-char-list");
+  } else {
+    document
+      .getElementById("no-chars")
+      .setAttribute("style", "display: block;");
+  }
+
+  // Update character.charName
+  document.getElementById("char-name").value = character.charName;
 
   // Update Ability scores
   const scoreBoxes = [...document.getElementsByClassName("ap-display")];

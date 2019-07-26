@@ -6,32 +6,51 @@ import {backgrounds} from "./data/backgrounds.js";
 import {pickSkillProficiencies} from "./modals.js";
 
 export default class Character {
-  constructor(level = 1) {
-    this.characterName = "Default Name";
-    this.characterClass = "";
-    this.characterRace = "";
-    this.characterBackground = "";
-    this.alignment = "";
-    this.exp = 0;
-    this.playerName = "";
-    this.level = level;
-    this.hitDice = level;
-    this.hitType = 8;
-    this.HP = 7;
-    this.pros = [];
-    this.otherPro = "";
-    this.spells = "";
-    this.equip = "";
-    this.traits = "";
-    this.stats = {
-      str: new Stat("str"),
-      dex: new Stat("dex"),
-      con: new Stat("con"),
-      int: new Stat("int"),
-      wis: new Stat("wis"),
-      cha: new Stat("cha"),
-    };
+  constructor(
+    options = {
+      charName: "Default Name",
+      characterClass: "",
+      characterRace: "",
+      characterBackground: "",
+      alignment: "",
+      exp: 0,
+      playerName: "",
+      level: 1,
+      hitType: 8,
+      HP: 7,
+      pros: [],
+      otherPro: "",
+      spells: "",
+      equip: "",
+      traits: "",
+      stats: {
+        str: new Stat("str"),
+        dex: new Stat("dex"),
+        con: new Stat("con"),
+        int: new Stat("int"),
+        wis: new Stat("wis"),
+        cha: new Stat("cha"),
+      },
+    }
+  ) {
+    this.charName = options.charName;
+    this.characterClass = options.characterClass;
+    this.characterRace = options.characterRace;
+    this.characterBackground = options.characterBackground;
+    this.alignment = options.alignment;
+    this.exp = options.exp;
+    this.playerName = options.playerName;
+    this.level = options.level;
+    this.hitDice = options.level;
+    this.hitType = options.hitType;
+    this.pros = options.pros;
+    this.otherPro = options.otherPro;
+    this.spells = options.spells;
+    this.equip = options.equip;
+    this.traits = options.traits;
+    this.stats = options.stats;
     this.setProBonus();
+    this.HP = this.calcMaxHP();
   }
 
   calcMaxHP() {
@@ -90,7 +109,7 @@ export default class Character {
   }
 
   levelUp() {
-    console.log(`${this.characterName} is leveling up!`);
+    console.log(`${this.charName} is leveling up!`);
 
     if (this.level === 20) {
       alert("You're Already Max Level!");
@@ -195,7 +214,7 @@ export default class Character {
     console.log("updating character...");
 
     // Update Character Name
-    this.characterName = document.getElementById("char-name").value;
+    this.charName = document.getElementById("char-name").value;
 
     // Update Character Proficiency Bonus
     this.setProBonus();
@@ -224,7 +243,7 @@ export default class Character {
 
 class Stat {
   constructor(name) {
-    this.name = name;
+    this.charName = name;
     this.abilityScore = 8;
     this.mod = -1;
   }

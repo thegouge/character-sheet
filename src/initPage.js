@@ -5,6 +5,8 @@ import {backgrounds} from "./data/backgrounds.js";
 
 import {openAPRoller} from "./modals.js";
 
+import {save} from "./main.js";
+
 function createListItem(value) {
   return `<option value=${value} />`;
 }
@@ -39,6 +41,9 @@ export default function initializePage(character) {
   });
   document.getElementById("backgrounds").addEventListener("change", () => {
     character.chooseBackground(document.getElementById("backgrounds").value);
+  });
+  document.getElementById("save-btn").addEventListener("click", () => {
+    save();
   });
   document.getElementById("update-btn").addEventListener("click", () => {
     character.updateStats();
