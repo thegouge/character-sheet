@@ -105,7 +105,7 @@ export default class Character {
 
     modifier += this.stats[skill.stat].mod;
 
-    document.getElementById(skillName + "-mod").innerHTML = modifier;
+    document.querySelector(`#${skillName}-mod`).innerHTML = modifier;
   }
 
   levelUp() {
@@ -115,12 +115,12 @@ export default class Character {
       alert("You're Already Max Level!");
     } else {
       this.level++;
-      document.getElementById("char-level").value = this.level;
+      document.querySelector("#char-level").value = this.level;
       this.setProBonus();
     }
 
     // Make the Ability Point Generation button go away
-    document.getElementById("ap").style.display = "none";
+    document.querySelector("#ap").style.display = "none";
   }
 
   classBonus(className) {
@@ -138,7 +138,7 @@ export default class Character {
     this.hitType = chosenClass.hitDice;
     this.HP = this.calcMaxHP();
     chosenClass.throws.forEach((save) => {
-      document.getElementById(save.id).checked = true;
+      document.querySelector(`#${save.id}`).checked = true;
       this.pros.push(save);
     });
     this.otherPro += chosenClass.proficiencies;
@@ -157,16 +157,16 @@ export default class Character {
 
     // Set each element to an easier to read variable
     const bonuses = race.stats;
-    const otherPro = document.getElementById("otherPro");
-    const traits = document.getElementById("traits");
+    const otherPro = document.querySelector("#otherPro");
+    const traits = document.querySelector("#traits");
 
     // Update elements based on json info
     for (let i = 0; i < bonuses.length; i++) {
-      document.getElementById(bonuses[i].name).value =
-        parseInt(document.getElementById(race.stats[i].name).value) +
+      document.querySelector(`#${bonuses[i].name}`).value =
+        parseInt(document.querySelector(race.stats[i].name).value) +
         race.stats[i].bonus;
     }
-    document.getElementById("speed").innerHTML = race.speed;
+    document.querySelector("#speed").innerHTML = race.speed;
     otherPro.innerHTML += race.languages;
     traits.innerHTML += race.other;
 
@@ -181,10 +181,10 @@ export default class Character {
     });
 
     // Set each element to an easier to read constiable
-    const otherPro = document.getElementById("otherPro");
-    const traits = document.getElementById("traits");
-    const equip = document.getElementById("equip");
-    const gold = document.getElementById("gold");
+    const otherPro = document.querySelector("#otherPro");
+    const traits = document.querySelector("#traits");
+    const equip = document.querySelector("#equip");
+    const gold = document.querySelector("#gold");
 
     // Exception for 'Haunted' Background
     if (background.name == "Haunted") {
@@ -197,7 +197,7 @@ export default class Character {
     } else {
       // update skill proficiencies
       background.skills.forEach(function(element) {
-        document.getElementById(element.id).checked = true;
+        document.querySelector(`#${element.id}`).checked = true;
       });
     }
     // Update elements based on json info
@@ -214,14 +214,14 @@ export default class Character {
     console.log("updating character...");
 
     // Update Character Name
-    this.charName = document.getElementById("char-name").value;
+    this.charName = document.querySelector("#char-name").value;
 
     // Update Character Proficiency Bonus
     this.setProBonus();
 
     // Getting Ability Scores from the Document
     for (let stat in this.stats) {
-      let statAsWritten = document.getElementById(stat);
+      let statAsWritten = document.querySelector(`#${stat}`);
       let characterStat = this.stats[stat];
 
       characterStat.abilityScore = parseInt(statAsWritten.value);
@@ -230,14 +230,14 @@ export default class Character {
 
     //Calculate Skill Modifiers
     skills.map((skill) => {
-      if (document.getElementById(skill.id).checked) {
+      if (document.querySelector(`#${skill.id}`).checked) {
         this.pros.push(skill);
       }
       this.calcSkillModifier(skill.id);
     });
 
     // Calculating initiative Mod
-    document.getElementById("initiative").innerHTML = this.stats.dex.mod;
+    document.querySelector("#initiative").innerHTML = this.stats.dex.mod;
   }
 }
 

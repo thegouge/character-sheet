@@ -11,18 +11,18 @@ export function save() {
 
   localStorage.setItem("D&D-" + character.charName, JSON.stringify(character));
 
-  const characterDiv = document.getElementById("saved-char-list");
+  const characterDiv = document.querySelector("#saved-char-list");
 
-  characterDiv.innerHTML += `<li class="character" id="${character.charName}">${
-    character.charName
-  }</li> <span class="delchar" id="${character.charName}-del">X</span>`;
-
-  document.getElementById(character.charName).addEventListener("click", () => {
-    load(character.charName);
-  });
+  characterDiv.innerHTML += `<li class="character" id="${character.charName}">${character.charName}</li> <span class="delchar" id="${character.charName}-del">X</span>`;
 
   document
-    .getElementById(`${character.charName}-del`)
+    .querySelector(`#${character.charName}`)
+    .addEventListener("click", () => {
+      load(character.charName);
+    });
+
+  document
+    .querySelector(`#${character.charName}-del`)
     .addEventListener("click", () => {
       deleteCharacter(character.charName);
     });
@@ -52,20 +52,20 @@ function updatePage() {
   console.log("updating page...");
 
   // Update Character Load modal
-  const charList = document.getElementById("saved-char-list");
+  const charList = document.querySelector("#saved-char-list");
 
   if (charList.children.length > 0) {
-    document.getElementById("no-chars").setAttribute("style", "display: none;");
+    document.querySelector("#no-chars").setAttribute("style", "display: none;");
 
-    const newCharList = document.getElementById("saved-char-list");
+    const newCharList = document.querySelector("#saved-char-list");
   } else {
     document
-      .getElementById("no-chars")
+      .querySelector("#no-chars")
       .setAttribute("style", "display: block;");
   }
 
   // Update character.charName
-  document.getElementById("char-name").value = character.charName;
+  document.querySelector("#char-name").value = character.charName;
 
   // Update Ability scores
   const scoreBoxes = [...document.getElementsByClassName("ap-display")];
@@ -77,27 +77,27 @@ function updatePage() {
   }
 
   // Update Proficiency Bonus
-  document.getElementById("pro-bonus").innerHTML = `+${character.proBonus}`;
+  document.querySelector("#pro-bonus").innerHTML = `+${character.proBonus}`;
 
   // Update Passive Perception
   let proficiencyBonus =
     character.pros.filter((skill) => skill.name === "Perception").length > 0
       ? character.proBonus
       : 0;
-  document.getElementById("pasPer").innerHTML =
+  document.querySelector("#pasPer").innerHTML =
     10 + character.stats.wis.mod + proficiencyBonus;
 
   // Update AC
-  document.getElementById("ac").value = 10 + character.stats.dex.mod;
+  document.querySelector("#ac").value = 10 + character.stats.dex.mod;
 
   // Update Initiative
-  document.getElementById("initiative").innerHTML = character.stats.dex.mod;
+  document.querySelector("#initiative").innerHTML = character.stats.dex.mod;
 
   // Update Hit Dice
-  document.getElementById("hit-type").innerHTML = `1d${character.hitType}`;
-  document.getElementById("hit-dice").value = character.level;
-  document.getElementById("max-hp").value = character.calcMaxHP();
-  document.getElementById("hp").value = character.HP;
+  document.querySelector("#hit-type").innerHTML = `1d${character.hitType}`;
+  document.querySelector("#hit-dice").value = character.level;
+  document.querySelector("#max-hp").value = character.calcMaxHP();
+  document.querySelector("#hp").value = character.HP;
 }
 
 initializePage(character);

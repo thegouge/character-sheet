@@ -12,9 +12,9 @@ function createListItem(value) {
 }
 
 export default function initializePage(character) {
-  const classList = document.getElementById("class-list");
-  const backgroundList = document.getElementById("background-list");
-  const raceList = document.getElementById("race-list");
+  const classList = document.querySelector("#class-list");
+  const backgroundList = document.querySelector("#background-list");
+  const raceList = document.querySelector("#race-list");
   const AbilityScores = [...document.getElementsByClassName("stat")];
 
   // Populate Class List
@@ -33,25 +33,25 @@ export default function initializePage(character) {
   });
 
   // Event Listeners
-  document.getElementById("classes").addEventListener("change", () => {
-    character.classBonus(document.getElementById("classes").value);
+  document.querySelector("#classes").addEventListener("change", () => {
+    character.classBonus(document.querySelector("#classes").value);
   });
-  document.getElementById("races").addEventListener("change", () => {
-    character.chooseRace(document.getElementById("races").value);
+  document.querySelector("#races").addEventListener("change", () => {
+    character.chooseRace(document.querySelector("#races").value);
   });
-  document.getElementById("backgrounds").addEventListener("change", () => {
-    character.chooseBackground(document.getElementById("backgrounds").value);
+  document.querySelector("#backgrounds").addEventListener("change", () => {
+    character.chooseBackground(document.querySelector("#backgrounds").value);
   });
-  document.getElementById("save-btn").addEventListener("click", () => {
+  document.querySelector("#save-btn").addEventListener("click", () => {
     save();
   });
-  document.getElementById("update-btn").addEventListener("click", () => {
+  document.querySelector("#update-btn").addEventListener("click", () => {
     character.updateStats();
   });
-  document.getElementById("ap-btn").addEventListener("click", () => {
+  document.querySelector("#ap-btn").addEventListener("click", () => {
     openAPRoller();
   });
-  document.getElementById("level-btn").addEventListener("click", () => {
+  document.querySelector("#level-btn").addEventListener("click", () => {
     character.levelUp();
   });
 
@@ -77,7 +77,7 @@ export default function initializePage(character) {
     listItem.appendChild(input);
     listItem.appendChild(skillModifier);
     skill.id.length > 4
-      ? document.getElementById("saving-throws").appendChild(listItem)
-      : document.getElementById("skills").appendChild(listItem);
+      ? document.querySelector("#saving-throws").appendChild(listItem)
+      : document.querySelector("#skills").appendChild(listItem);
   });
 }

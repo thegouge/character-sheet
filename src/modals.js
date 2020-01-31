@@ -1,7 +1,7 @@
 import {character} from "./main.js";
 
 function closeModal(id) {
-  document.getElementById(id).style.display = "none";
+  document.querySelector(`#${id}`).style.display = "none";
 }
 
 function rollAP() {
@@ -22,7 +22,7 @@ function rollAP() {
 
 export function openAPRoller() {
   console.log("Opening AP roller...");
-  const modal = document.getElementById("ap-modal");
+  const modal = document.querySelector("#ap-modal");
   document.getElementsByClassName("close")[0].addEventListener("click", () => {
     closeModal("ap-modal");
   });
@@ -32,12 +32,12 @@ export function openAPRoller() {
   let results = rollAP();
 
   const statLists = [
-    document.getElementById("strengthList"),
-    document.getElementById("dexterityList"),
-    document.getElementById("constitutionList"),
-    document.getElementById("intelligenceList"),
-    document.getElementById("wisdomList"),
-    document.getElementById("charismaList"),
+    document.querySelector("#strengthList"),
+    document.querySelector("#dexterityList"),
+    document.querySelector("#constitutionList"),
+    document.querySelector("#intelligenceList"),
+    document.querySelector("#wisdomList"),
+    document.querySelector("#charismaList"),
   ];
 
   statLists.forEach((list) => {
@@ -53,25 +53,25 @@ export function openAPRoller() {
     });
   });
 
-  document.getElementById("ap-submit").onclick = () => {
+  document.querySelector("#ap-submit").onclick = () => {
     modal.style.display = "none";
-    document.getElementById("str").value = document.getElementById(
-      "strengthList"
+    document.querySelector("#str").value = document.querySelector(
+      `#${"strengthList"}`
     ).value;
-    document.getElementById("dex").value = document.getElementById(
-      "dexterityList"
+    document.querySelector("#dex").value = document.querySelector(
+      `#${"dexterityList"}`
     ).value;
-    document.getElementById("con").value = document.getElementById(
-      "constitutionList"
+    document.querySelector("#con").value = document.querySelector(
+      `#${"constitutionList"}`
     ).value;
-    document.getElementById("int").value = document.getElementById(
-      "intelligenceList"
+    document.querySelector("#int").value = document.querySelector(
+      `#${"intelligenceList"}`
     ).value;
-    document.getElementById("wis").value = document.getElementById(
-      "wisdomList"
+    document.querySelector("#wis").value = document.querySelector(
+      `#${"wisdomList"}`
     ).value;
-    document.getElementById("cha").value = document.getElementById(
-      "charismaList"
+    document.querySelector("#cha").value = document.querySelector(
+      `#${"charismaList"}`
     ).value;
 
     character.updateStats();
@@ -99,21 +99,21 @@ function rePopulateAPs(selectedList, scoreList) {
 
 export function pickSkillProficiencies(numberOfSkills, unfilteredSkillList) {
   const listOfSkills = unfilteredSkillList.filter((skill) => {
-    return !document.getElementById(skill.id).checked;
+    return !document.querySelector(`#${skill.id}`).checked;
   });
-  const modal = document.getElementById("skill-modal");
+  const modal = document.querySelector("#skill-modal");
   modal.style.display = "block";
   document.getElementsByClassName("close")[1].addEventListener("click", (e) => {
     closeModal("skill-modal");
   });
 
-  const header = document.getElementById("skill-pick-header");
+  const header = document.querySelector("#skill-pick-header");
   header.innerHTML = `Choose ${numberOfSkills} Skills`;
 
-  const pageList = document.getElementById("skill-sub-list");
+  const pageList = document.querySelector("#skill-sub-list");
 
   const updateSubSkills = (id) => {
-    const checkbox = document.getElementById(id);
+    const checkbox = document.querySelector(`#${id}`);
     console.log(checkbox);
     if (checkbox.checked) {
       --numberOfSkills;
@@ -123,9 +123,9 @@ export function pickSkillProficiencies(numberOfSkills, unfilteredSkillList) {
       header.innerHTML = `Choose ${numberOfSkills} Skills`;
     }
     if (numberOfSkills === 0) {
-      document.getElementById("skill-submit").style.display = "block";
+      document.querySelector("#skill-submit").style.display = "block";
     } else {
-      document.getElementById("skill-submit").style.display = "none";
+      document.querySelector("#skill-submit").style.display = "none";
     }
   };
 
@@ -148,18 +148,18 @@ export function pickSkillProficiencies(numberOfSkills, unfilteredSkillList) {
     pageList.appendChild(li);
   }
 
-  document.getElementById("skill-submit").addEventListener("click", () => {
+  document.querySelector("#skill-submit").addEventListener("click", () => {
     submitSkillModal(pageList.children);
   });
 }
 
 function submitSkillModal(list) {
-  document.getElementById("skill-modal").style.display = "none";
+  document.querySelector("#skill-modal").style.display = "none";
   for (let skill of list) {
     const box = skill.children[0];
     let id = box.id.substring(4);
     if (box.checked) {
-      document.getElementById(id).checked = true;
+      document.querySelector(`#${id}`).checked = true;
       character.addSkillPro(id);
     }
   }
