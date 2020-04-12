@@ -1,5 +1,5 @@
 // import lists of stuff
-import Character from "./Character.js";
+import Character from "../Character.js";
 import initializePage from "./initPage.js";
 
 // Creation of the Ability Score Object

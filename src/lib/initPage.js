@@ -1,7 +1,7 @@
-import {skills} from "./data/skills.js";
-import {races} from "./data/races.js";
-import {classes} from "./data/classes.js";
-import {backgrounds} from "./data/backgrounds.js";
+import {skills} from "../data/skills.js";
+import {races} from "../data/races.js";
+import {classes} from "../data/classes.js";
+import {backgrounds} from "../data/backgrounds.js";
 
 import {openAPRoller} from "./modals.js";
 
