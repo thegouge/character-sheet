@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {App} from './components/App';
+import {Sheet} from './components/Sheet';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Sheet />
   </React.StrictMode>,
   document.getElementById('root')
 );
