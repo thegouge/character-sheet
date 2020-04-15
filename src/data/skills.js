@@ -1,122 +1,119 @@
-export const skills = [
+export const throws = [
   {
     name: "Strength",
-    id: "str-st",
-    stat: "str",
+    proficient: false,
   },
   {
     name: "Dexterity",
-    id: "dex-st",
-    stat: "dex",
+    proficient: false,
   },
   {
     name: "Constitution",
-    id: "con-st",
-    stat: "con",
+    proficient: false,
   },
   {
     name: "Intelligence",
-    id: "int-st",
-    stat: "int",
+    proficient: false,
   },
   {
     name: "Wisdom",
-    id: "wis-st",
-    stat: "wis",
+    proficient: false,
   },
   {
     name: "Charisma",
-    id: "cha-st",
-    stat: "cha",
+    proficient: false,
   },
+];
+
+export const skills = [
   {
     name: "Acrobatics",
-    id: "acro",
+    proficient: false,
     stat: "dex",
   },
   {
     name: "Animal Handling",
-    id: "anim",
+    proficient: false,
     stat: "wis",
   },
   {
     name: "Arcana",
-    id: "arca",
+    proficient: false,
     stat: "int",
   },
   {
     name: "Athletics",
-    id: "athl",
+    proficient: false,
     stat: "str",
   },
   {
     name: "Deception",
-    id: "dece",
+    proficient: false,
     stat: "cha",
   },
   {
     name: "History",
-    id: "hist",
+    proficient: false,
     stat: "int",
   },
   {
     name: "Insight",
-    id: "insi",
+    proficient: false,
     stat: "wis",
   },
   {
     name: "Intimidation",
-    id: "inti",
+    proficient: false,
     stat: "cha",
   },
   {
     name: "Investigation",
-    id: "inve",
+    proficient: false,
     stat: "int",
   },
   {
     name: "Medicine",
-    id: "medi",
+    proficient: false,
     stat: "wis",
   },
   {
     name: "Nature",
-    id: "natu",
+    proficient: false,
     stat: "int",
   },
   {
     name: "Perception",
-    id: "perc",
+    proficient: false,
     stat: "wis",
   },
   {
     name: "Performance",
-    id: "perf",
+    proficient: false,
     stat: "cha",
   },
   {
     name: "Persuasion",
-    id: "pers",
+    proficient: false,
     stat: "cha",
   },
   {
     name: "Religion",
-    id: "reli",
+    proficient: false,
     stat: "int",
   },
   {
     name: "Sleight of Hand",
-    id: "hand",
+    proficient: false,
     stat: "dex",
   },
   {
     name: "Stealth",
-    id: "stea",
+    proficient: false,
     stat: "dex",
   },
   {
     name: "Survival",
-    id: "surv",
+    proficient: false,
     stat: "wis",
   },
 ];

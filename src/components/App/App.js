@@ -1,4 +1,16 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.scss";
 
-export const App = () => <div className="App">It works!</div>
+import { Sheet } from "../Sheet";
+
+import { Character } from "../../lib/Character";
+
+export const App = () => {
+  const [character, setCharacter] = useState(new Character());
+
+  return (
+    <div className="App">
+      <Sheet character={character} />
+    </div>
+  );
+};
