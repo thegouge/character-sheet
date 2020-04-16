@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./App.scss";
+import "../styles/App.scss";
 
-import { Sheet } from "./Sheet";
+import { Sheet } from "../pages/Sheet";
 
 import { Character } from "../lib/Character";
 

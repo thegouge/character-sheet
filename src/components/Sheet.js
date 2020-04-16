@@ -1,38 +1,14 @@
 import React from "react";
 
-import { throws, skills } from "../data/skills";
+import { throws, skills } from "../lib/skills";
+import { calcMod } from "../lib/helpers";
 
-import "./Sheet.scss";
+import { RenderedSkill } from "./RenderedSkill";
+
+import "../styles/Sheet.scss";
 
 export const Sheet = ({ character }) => {
 	const { name, level, charClass, abilityScores, proficiency } = character;
-
-	const calcMod = (score) => {
-		return Math.floor((score - 10) / 2);
-	};
-
-	const skillRender = (list) => {
-		return list.map((skill) => {
-			let statMod = calcMod(abilityScores[skill.stat].score);
-			if (skill.proficient) {
-				statMod += proficiency;
-			}
-
-			return (
-				<li key={skill.name}>
-					<input
-						type="checkBox"
-						className="proficient"
-						id={`${skill.name}-pro`}
-						checked={skill.proficient}
-						readOnly={true}
-					/>
-					<span className="skill-mod">{statMod}</span>
-					<span className="skill-name">{skill.name}</span>
-				</li>
-			);
-		});
-	};
 
 	return (
 		<div className="char-sheet">
@@ -55,12 +31,26 @@ export const Sheet = ({ character }) => {
 
 			<ul className="throws">
 				<h3>Saving Throws</h3>
-				{skillRender(throws)}
+				{throws.map((skill) => {
+					let statMod = calcMod(abilityScores[skill.stat].score);
+					if (skill.proficient) statMod += proficiency;
+
+					return (
+						<RenderedSkill key={skill.name} skill={skill} statMod={statMod} />
+					);
+				})}
 			</ul>
 
 			<ul className="skills">
 				<h3>Skills</h3>
-				{skillRender(skills)}
+				{skills.map((skill) => {
+					let statMod = calcMod(abilityScores[skill.stat].score);
+					if (skill.proficient) statMod += proficiency;
+
+					return (
+						<RenderedSkill key={skill.name} skill={skill} statMod={statMod} />
+					);
+				})}
 			</ul>
 		</div>
 	);
