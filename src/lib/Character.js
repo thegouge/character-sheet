@@ -2,14 +2,14 @@ export class Character {
   constructor() {
     this.name = "Derp Herply";
     this.level = 1;
-    this.abilityScores = [
-      { name: "Strength", score: 10 },
-      { name: "Dexterity", score: 10 },
-      { name: "Constitution", score: 10 },
-      { name: "Intelligence", score: 10 },
-      { name: "Wisdom", score: 10 },
-      { name: "Charisma", score: 10 },
-    ];
+    this.abilityScores = {
+      str: { name: "Strength", score: 10 },
+      dex: { name: "Dexterity", score: 10 },
+      con: { name: "Constitution", score: 10 },
+      int: { name: "Intelligence", score: 10 },
+      wis: { name: "Wisdom", score: 10 },
+      cha: { name: "Charisma", score: 10 },
+    };
     this.charClass = "Person";
     this.proficiency = 2;
   }

@@ -1,26 +1,32 @@
 export const throws = [
   {
     name: "Strength",
+    stat: "str",
     proficient: false,
   },
   {
     name: "Dexterity",
+    stat: "dex",
     proficient: false,
   },
   {
     name: "Constitution",
+    stat: "con",
     proficient: false,
   },
   {
     name: "Intelligence",
+    stat: "int",
     proficient: false,
   },
   {
     name: "Wisdom",
+    stat: "wis",
     proficient: false,
   },
   {
     name: "Charisma",
+    stat: "cha",
     proficient: false,
   },
 ];
