@@ -3,7 +3,7 @@ import React from "react";
 import { throws, skills } from "../../lib/skillData";
 import { calcMod } from "../../lib/helpers";
 
-import "../../styles/skills.scss";
+import "../../styles/Skills.scss";
 
 export const Skills = ({ character }) => {
 	const { abilityScores, proficiency } = character;
