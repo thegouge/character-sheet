@@ -1,0 +1,23 @@
+.throws,
+.skills {
+	margin-top: 1rem;
+	display: grid;
+	column-gap: 1em;
+	justify-items: start;
+
+	h3 {
+		grid-column-start: 1;
+		grid-column-end: 3;
+	}
+
+	li {
+		border: 1px solid black;
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+	}
+}
+
+.throws {
+	grid-template-columns: 1fr 1fr;
+}

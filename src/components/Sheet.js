@@ -1,14 +1,13 @@
 import React from "react";
 
-import { throws, skills } from "../lib/skills";
-import { calcMod } from "../lib/helpers";
+import { Tabs } from "./Tabs";
 
-import { RenderedSkill } from "./RenderedSkill";
+import { calcMod } from "../lib/helpers";
 
 import "../styles/Sheet.scss";
 
 export const Sheet = ({ character }) => {
-	const { name, level, charClass, abilityScores, proficiency } = character;
+	const { name, level, charClass, abilityScores } = character;
 
 	return (
 		<div className="char-sheet">
@@ -29,29 +28,7 @@ export const Sheet = ({ character }) => {
 				))}
 			</ul>
 
-			<ul className="throws">
-				<h3>Saving Throws</h3>
-				{throws.map((skill) => {
-					let statMod = calcMod(abilityScores[skill.stat].score);
-					if (skill.proficient) statMod += proficiency;
-
-					return (
-						<RenderedSkill key={skill.name} skill={skill} statMod={statMod} />
-					);
-				})}
-			</ul>
-
-			<ul className="skills">
-				<h3>Skills</h3>
-				{skills.map((skill) => {
-					let statMod = calcMod(abilityScores[skill.stat].score);
-					if (skill.proficient) statMod += proficiency;
-
-					return (
-						<RenderedSkill key={skill.name} skill={skill} statMod={statMod} />
-					);
-				})}
-			</ul>
+			<Tabs character={character} />
 		</div>
 	);
 };
