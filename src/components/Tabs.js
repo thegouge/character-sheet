@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import SwipableViews from "react-swipeable-views";
+
 import {
 	Skills,
 	Attacks,
@@ -22,37 +24,6 @@ export const Tabs = ({ character }) => {
 		"Description",
 	];
 
-	let renderedComponent;
-
-	switch (activeTab) {
-		case 0:
-			renderedComponent = <Skills character={character} />;
-			break;
-
-		case 1:
-			renderedComponent = <Attacks character={character} />;
-			break;
-
-		case 2:
-			renderedComponent = <Spells character={character} />;
-			break;
-
-		case 3:
-			renderedComponent = <Inventory character={character} />;
-			break;
-
-		case 4:
-			renderedComponent = <Traits character={character} />;
-			break;
-
-		case 5:
-			renderedComponent = <Description character={character} />;
-			break;
-
-		default:
-			renderedComponent = "";
-	}
-
 	return (
 		<div className="sheet-router">
 			<div className="tab-bar">
@@ -66,7 +37,18 @@ export const Tabs = ({ character }) => {
 					</div>
 				))}
 			</div>
-			{renderedComponent}
+			<SwipableViews
+				index={activeTab}
+				onChangeIndex={(value) => {
+					setActiveTab(value);
+				}}>
+				<Skills character={character} />
+				<Attacks character={character} />
+				<Spells character={character} />
+				<Inventory character={character} />
+				<Traits character={character} />
+				<Description character={character} />
+			</SwipableViews>
 		</div>
 	);
 };

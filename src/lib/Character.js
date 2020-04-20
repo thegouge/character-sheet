@@ -2,6 +2,8 @@ export class Character {
 	constructor() {
 		this.name = "Derp Herply";
 		this.level = 1;
+		this.HP = 69;
+		this.maxHP = 69;
 		this.abilityScores = {
 			str: { name: "Strength", score: 10 },
 			dex: { name: "Dexterity", score: 10 },
