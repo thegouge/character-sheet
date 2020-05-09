@@ -2,7 +2,7 @@
 	<div>
 		<ul class="throws">
 			<h3>Saving Throws</h3>
-			<li></li>
+			<li v-for="sThrow in throws" :key="sThrow.name">{{ sThrow.name }}</li>
 		</ul>
 
 		<ul class="skills">
@@ -13,29 +13,42 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { throws, skills } from "../lib/skillData";
 import { calcMod } from "../lib/helperFunctions";
 
 export default {
 	name: "TabSkills",
+	data() {
+		return {
+			throws,
+			skills,
+		};
+	},
+	computed: {
+		...mapGetters(["currentCharacter"]),
+		abilityScores() {
+			return this.currentCharacter.abilityScores;
+		},
+		proficiency() {
+			return this.currentCharacter.proficiency;
+		},
+	},
 	methods: {
 		renderSkill(skill) {
-			let statMod = calcMod(abilityScores[skill.stat].score);
+			let statMod = calcMod(this.abilityScores[skill.stat].score);
 			let pro = "pro-icon ";
 
 			if (skill.proficient) {
-				statMod += proficiency;
+				statMod += this.proficiency;
 				pro += "filled";
 			} else {
 				pro += "open";
 			}
 
-			return `
-			<li key=${skill.name}>
-				<span class=${pro}></span>
+			return `<span class=${pro}></span>
 				<span class="skill-mod">${statMod}</span>
-				<span class="skill-name">${skill.name}</span>
-			</li>`;
+				<span class="skill-name">${skill.name}</span>`;
 		},
 	},
 };

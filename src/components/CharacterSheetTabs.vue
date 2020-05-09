@@ -60,7 +60,7 @@ export default {
 	},
 	methods: {
 		checkWidth() {
-			this.showTabs = window.outerWidth > 663;
+			this.showTabs = window.outerWidth > 686;
 		},
 		setActiveTab(index) {
 			this.currentTab = index;
@@ -79,9 +79,6 @@ export default {
 }
 
 .tab-bar {
-	display: flex;
-	justify-content: space-between;
-	max-width: 32em;
 	position: relative;
 	list-style: none;
 	margin: 0;
@@ -91,7 +88,6 @@ export default {
 	&:before {
 		z-index: 1;
 	}
-
 	&:after {
 		position: absolute;
 		content: "";
@@ -101,146 +97,61 @@ export default {
 		border-bottom: 1px solid #aaa;
 		z-index: 1;
 	}
+}
 
-	.tab {
-		position: relative;
-		z-index: 0;
-		margin: 0 -3px;
-		padding: 0 15px;
+.tab {
+	position: relative;
+	z-index: 0;
+	margin: 0 -3px;
+	padding: 0 20px;
+	border: 1px solid #aaa;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	background: linear-gradient(
+		to bottom,
+		rgb(235, 235, 235) 50%,
+		rgb(204, 203, 203) 100%
+	);
+	text-shadow: 0 1px white;
+	display: inline-block;
+	cursor: pointer;
+	user-select: none;
+
+	&:before,
+	&:after {
+		position: absolute;
+		bottom: -1px;
+		width: 6px;
+		height: 6px;
+		content: " ";
 		border: 1px solid #aaa;
-		border-top-left-radius: 6px;
-		border-top-right-radius: 6px;
-		background: linear-gradient(
-			to bottom,
-			rgb(235, 235, 235) 50%,
-			rgb(204, 203, 203) 100%
-		);
-		text-shadow: 0 1px white;
-		display: inline-block;
-		cursor: pointer;
-		user-select: none;
+	}
 
-		&:before,
-		&:after {
-			position: absolute;
-			bottom: -1px;
-			width: 6px;
-			height: 6px;
-			content: " ";
-			border: 1px solid #aaa;
-		}
+	&:before {
+		left: -7px;
+		border-bottom-right-radius: 6px;
+		border-width: 0 1px 1px 0;
+		box-shadow: 1px 0.5px 0 rgb(204, 203, 203);
+	}
 
-		&:before {
-			left: -7px;
-			border-bottom-right-radius: 6px;
-			border-width: 0 1px 1px 0;
-			box-shadow: 1px 0.5px 0 rgb(204, 203, 203);
-		}
-
-		&:after {
-			right: -7px;
-			border-bottom-left-radius: 6px;
-			border-width: 0 0 1px 1px;
-			box-shadow: -1px 0.5px 0 rgb(204, 203, 203);
-		}
-
-		&.active {
-			z-index: 2;
-			border-bottom-color: white;
-			background: white;
-
-			&:before {
-				box-shadow: 2px 2px 0 white;
-			}
-
-			&:after {
-				box-shadow: -2px 2px 0 white;
-			}
-		}
+	&:after {
+		right: -7px;
+		border-bottom-left-radius: 6px;
+		border-width: 0 0 1px 1px;
+		box-shadow: -1px 0.5px 0 rgb(204, 203, 203);
 	}
 }
 
-@media screen and (min-width: 38rem) {
-	.tab-bar {
-		display: flex;
-		justify-content: space-between;
-		max-width: 32em;
-		position: relative;
-		list-style: none;
-		margin: 0;
-		padding: 0 40px;
-		line-height: 24px;
+.activeTab {
+	z-index: 2;
+	border-bottom-color: white;
+	background: white;
 
-		&:before {
-			z-index: 1;
-		}
-
-		&:after {
-			position: absolute;
-			content: "";
-			width: 100%;
-			bottom: 0;
-			left: 0;
-			border-bottom: 1px solid #aaa;
-			z-index: 1;
-		}
-
-		.tab {
-			position: relative;
-			z-index: 0;
-			margin: 0 -3px;
-			padding: 0 15px;
-			border: 1px solid #aaa;
-			border-top-left-radius: 6px;
-			border-top-right-radius: 6px;
-			background: linear-gradient(
-				to bottom,
-				rgb(235, 235, 235) 50%,
-				rgb(204, 203, 203) 100%
-			);
-			text-shadow: 0 1px white;
-			display: inline-block;
-			cursor: pointer;
-			user-select: none;
-
-			&:before,
-			&:after {
-				position: absolute;
-				bottom: -1px;
-				width: 6px;
-				height: 6px;
-				content: " ";
-				border: 1px solid #aaa;
-			}
-
-			&:before {
-				left: -7px;
-				border-bottom-right-radius: 6px;
-				border-width: 0 1px 1px 0;
-				box-shadow: 1px 0.5px 0 rgb(204, 203, 203);
-			}
-
-			&:after {
-				right: -7px;
-				border-bottom-left-radius: 6px;
-				border-width: 0 0 1px 1px;
-				box-shadow: -1px 0.5px 0 rgb(204, 203, 203);
-			}
-
-			&.active {
-				z-index: 2;
-				border-bottom-color: white;
-				background: white;
-
-				&:before {
-					box-shadow: 2px 2px 0 white;
-				}
-
-				&:after {
-					box-shadow: -2px 2px 0 white;
-				}
-			}
-		}
+	&:before {
+		box-shadow: 2px 2px 0 white;
+	}
+	&:after {
+		box-shadow: -2px 2px 0 white;
 	}
 }
 </style>

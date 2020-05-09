@@ -1,16 +1,21 @@
 <template>
 	<div class="char-sheet">
 		<div class="top-block">
-			<h2 class="char-name">{{ charName }}</h2>
+			<h2 class="char-name">{{ currentCharacter.name }}</h2>
 			<div class="health-box">
 				<div class="hp-toolbox">
 					<button>+</button>
 					<input type="number" title="amount to change health by" />
 					<button>-</button>
 				</div>
-				<div class="health-display">{{ currentHP }}/{{ totalHP }}</div>
+				<div class="health-display">
+					{{ currentCharacter.HP }}/{{ currentCharacter.maxHP }}
+				</div>
 			</div>
-			<div class="char-details">Level: {{ level }} Class: {{ charClass }}</div>
+			<div class="char-details">
+				Level: {{ currentCharacter.level }} Class:
+				{{ currentCharacter.charClass }}
+			</div>
 		</div>
 
 		<CharacterSheetTabs />
@@ -29,6 +34,11 @@ export default {
 		return {
 			charName: "lurr",
 		};
+	},
+	computed: {
+		currentCharacter() {
+			return this.$store.getters.currentCharacter;
+		},
 	},
 };
 </script>
