@@ -1,20 +1,18 @@
 <template>
 	<div class="char-sheet">
 		<div class="top-block">
-			<h2 class="char-name">{{ currentCharacter.name }}</h2>
+			<h2 class="char-name">{{ name }}</h2>
 			<div class="health-box">
 				<div class="hp-toolbox">
 					<button>+</button>
 					<input type="number" title="amount to change health by" />
 					<button>-</button>
 				</div>
-				<div class="health-display">
-					{{ currentCharacter.HP }}/{{ currentCharacter.maxHP }}
-				</div>
+				<div class="health-display">{{ currHP }}/{{ maxHP }}</div>
 			</div>
 			<div class="char-details">
-				Level: {{ currentCharacter.level }} Class:
-				{{ currentCharacter.charClass }}
+				Level: {{ level }} Class:
+				{{ charClass }}
 			</div>
 		</div>
 
@@ -23,6 +21,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import CharacterSheetTabs from "./CharacterSheetTabs";
 
 export default {
@@ -36,8 +36,12 @@ export default {
 		};
 	},
 	computed: {
-		currentCharacter() {
-			return this.$store.getters.currentCharacter;
+		...mapGetters(["name", "health", "level", "charClass"]),
+		currHP() {
+			return this.health[0];
+		},
+		maxHP() {
+			return this.health[1];
 		},
 	},
 };

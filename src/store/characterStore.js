@@ -18,7 +18,13 @@ const state = {
 };
 
 const getters = {
-	currentCharacter: (state) => state.character,
+	currentCharacter: (state) => state,
+	name: (state) => state.name,
+	level: (state) => state.level,
+	health: (state) => [state.HP, state.maxHP],
+	abilityScores: (state) => state.abilityScores,
+	charClass: (state) => state.charClass,
+	proficiencyBonus: (state) => state.proficiency,
 };
 
 const actions = {
