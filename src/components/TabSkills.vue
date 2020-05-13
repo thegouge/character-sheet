@@ -3,6 +3,7 @@
     <h3>Ability Scores</h3>
     <ul class="scores">
       <div v-for="ability in abilityScores" :key="ability.name" class="score-block">
+        <h3>{{ability.name.substring(0, 3)}}</h3>
         <div class="score">{{ability.score}}</div>
         <div class="modifier">{{modifier(ability.score)}}</div>
       </div>
@@ -58,6 +59,11 @@ export default {
 .score-block {
   font-size: 1.5rem;
   text-align: center;
+}
+
+h3 {
+  margin: 0;
+  padding: 0;
 }
 
 .throws,
