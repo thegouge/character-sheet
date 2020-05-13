@@ -3,6 +3,9 @@
 const state = {
 	name: "Derp Herply",
 	level: 1,
+	charClass: "Person",
+	background: "who?",
+	race: "Human",
 	HP: 69,
 	maxHP: 69,
 	abilityScores: {
@@ -13,18 +16,38 @@ const state = {
 		wis: { name: "Wisdom", score: 10 },
 		cha: { name: "Charisma", score: 10 },
 	},
-	charClass: "Person",
+	alignment: "N",
 	proficiency: 2,
+	proficiencyList: [],
+	spellList: [],
+	traitList: [],
+	itemList: [],
+	equipment: {
+		armor: {
+			name: "Clothes",
+			ac: 10,
+			effect: false,
+		},
+		weapons: {},
+		other: {},
+	},
 };
 
 const getters = {
 	currentCharacter: (state) => state,
 	name: (state) => state.name,
+	background: (state) => state.background,
+	race: (state) => state.race,
+	charClass: (state) => state.charClass,
 	level: (state) => state.level,
 	health: (state) => [state.HP, state.maxHP],
 	abilityScores: (state) => state.abilityScores,
-	charClass: (state) => state.charClass,
 	proficiencyBonus: (state) => state.proficiency,
+	proficiencies: (state) => state.proficiencyList,
+	spells: (state) => state.spellList,
+	traits: (state) => state.traitList,
+	items: (state) => state.itemList,
+	equipment: (state) => state.equipment,
 };
 
 const actions = {
