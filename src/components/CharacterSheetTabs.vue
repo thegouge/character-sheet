@@ -30,6 +30,8 @@ import TabInventory from "./TabInventory";
 import TabTraits from "./TabTraits";
 import TabDescribe from "./TabDescribe";
 
+import { isWiderThan } from "../lib/helperFunctions";
+
 export default {
   name: "CharacterSheetTabs",
   components: {
@@ -51,20 +53,19 @@ export default {
         "Description"
       ],
       currentTab: 0,
-      showTabs: true
+      showTabs: isWiderThan(686)
     };
   },
   methods: {
-    checkWidth() {
-      this.showTabs = window.outerWidth > 686;
-    },
     setActiveTab(index) {
       this.currentTab = index;
     }
   },
   mounted() {
-    this.checkWidth();
-    window.addEventListener("resize", this.checkWidth);
+    // this.checkWidth();
+    window.addEventListener("resize", () => {
+      this.showTabs = isWiderThan(686);
+    });
   }
 };
 </script>

@@ -54,6 +54,7 @@ export default {
 .scores {
   display: flex;
   justify-content: space-around;
+  padding: 0;
 }
 
 .score-block {

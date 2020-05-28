@@ -4,8 +4,11 @@ const state = {
 	name: "Derp Herply",
 	level: 1,
 	charClass: "Person",
-	background: "who?",
-	race: "Human",
+	description: {
+		gender: "Female",
+		background: "who?",
+		race: "Human",
+	},
 	HP: 69,
 	maxHP: 69,
 	abilityScores: {
@@ -36,8 +39,7 @@ const state = {
 const getters = {
 	currentCharacter: (state) => state,
 	name: (state) => state.name,
-	background: (state) => state.background,
-	race: (state) => state.race,
+	description: (state) => state.description,
 	charClass: (state) => state.charClass,
 	level: (state) => state.level,
 	health: (state) => [state.HP, state.maxHP],
